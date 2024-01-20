@@ -24,4 +24,7 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Drivers/STM32G4xx_HAL_Driver/Src \
+FreeRTOS/Source \
+FreeRTOS/Source/portable/GCC/ARM_CM4F \
+FreeRTOS/Source/portable/MemMang \
 
