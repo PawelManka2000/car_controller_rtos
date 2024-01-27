@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c \
+Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -24,18 +24,15 @@ Core/Src/main.o: ../Core/Src/main.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h \
+ ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
+ ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/FreeRTOS.h \
- ../Core/Inc/FreeRTOSConfig.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/projdefs.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/portable.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/deprecated_definitions.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/mpu_wrappers.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/task.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/list.h \
- ../Core/Inc/main.h
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/clock_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/gpio_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/uart_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/timers_configuration.h
+../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h:
@@ -61,15 +58,11 @@ Core/Src/main.o: ../Core/Src/main.c \
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ramfunc.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/FreeRTOS.h:
-../Core/Inc/FreeRTOSConfig.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/projdefs.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/portable.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/deprecated_definitions.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/mpu_wrappers.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/task.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/FreeRTOS/Source/include/list.h:
-../Core/Inc/main.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/clock_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/gpio_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/uart_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/timers_configuration.h:
