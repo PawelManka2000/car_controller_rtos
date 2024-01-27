@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "gpio_configuration.h"
 #include "stm32g4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
