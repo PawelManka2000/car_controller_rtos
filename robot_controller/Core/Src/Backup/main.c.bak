@@ -24,8 +24,6 @@
 #include "timers_configuration.h"
 
 
-float rotate = 0;
-float speed = 0;
 int main(void)
 {
 
@@ -35,23 +33,19 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_USART1_UART_Init();
   MX_TIM1_Init();
-  MX_TIM8_Init();
-
-  HAL_TIM_Base_Start(&htim8);
   /* USER CODE BEGIN 2 */
 
-  static __IO uint16_t pulseCounter = 0;
-  static __IO uint16_t previous_pulseCounter = 0;
+
 
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
 
-  TIM1->CCR1 = 20;
-  TIM1->CCR2 = 20;
-  TIM1->CCR3 = 20;
-  TIM1->CCR4 = 20;
+  TIM1->CCR1 = 50;
+  TIM1->CCR2 = 50;
+  TIM1->CCR3 = 50;
+  TIM1->CCR4 = 50;
 
 
 
@@ -59,34 +53,11 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
-  char message[100];
-  static int diff;
-  static uint8_t received_data[3];
-  static int received_data_int;
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	  previous_pulseCounter = pulseCounter;
-	  pulseCounter = __HAL_TIM_GET_COUNTER(&htim8);
-	  diff = (pulseCounter - previous_pulseCounter);
-	  speed = (pulseCounter - previous_pulseCounter)/20;
-
-	  sprintf(message, "Dane to %d \n\r", (int)round(speed));
-	  sprintf(&(message[strlen(message)]), "pulse to %d \n\r", (int)round(pulseCounter));
-	  sprintf(&(message[strlen(message)]), "roznica to %d \n\r", (int)round(diff));
-
-	  HAL_UART_Receive(&hlpuart1, received_data, 3, 100);
-	  sscanf((char*)received_data, "%d", &received_data_int);
-
-	  sprintf(&(message[strlen(message)]), "to %d \n\r", received_data_int);
-
-	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
-	  HAL_Delay(1000);
-
-
 
 
   }

@@ -1,1 +1,2 @@
-../Core/Src/Drivers/timer_configuration.c:13:6:MX_TIM1_Init	10
+../Core/Src/Drivers/timer_configuration.c:15:6:MX_TIM1_Init	10
+../Core/Src/Drivers/timer_configuration.c:101:6:MX_TIM8_Init	4
