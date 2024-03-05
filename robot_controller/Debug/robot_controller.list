@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .comment      00000043  00000000  00000000  0002008c  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00016c8b  00000000  00000000  000200cf  2**0
+ 13 .debug_info   00016e29  00000000  00000000  000200cf  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 000030f8  00000000  00000000  00036d5a  2**0
+ 14 .debug_abbrev 00003121  00000000  00000000  00036ef8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 000012c8  00000000  00000000  00039e58  2**3
+ 15 .debug_aranges 000012e0  00000000  00000000  0003a020  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00000e9d  00000000  00000000  0003b120  2**0
+ 16 .debug_rnglists 00000eb1  00000000  00000000  0003b300  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00026780  00000000  00000000  0003bfbd  2**0
+ 17 .debug_macro  00026780  00000000  00000000  0003c1b1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   000176af  00000000  00000000  0006273d  2**0
+ 18 .debug_line   00017754  00000000  00000000  00062931  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0010287d  00000000  00000000  00079dec  2**0
+ 19 .debug_str    0010289d  00000000  00000000  0007a085  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00005744  00000000  00000000  0017c66c  2**2
+ 20 .debug_frame  000057b0  00000000  00000000  0017c924  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000087  00000000  00000000  00181db0  2**0
+ 21 .debug_line_str 00000087  00000000  00000000  001820d4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -992,7 +992,7 @@ void MX_GPIO_Init(void)
  8000b04:	48000800 	.word	0x48000800
 
 08000b08 <MX_TIM1_Init>:
-TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim8;
 
 
@@ -1639,21 +1639,22 @@ int main(void)
  8000eda:	485c      	ldr	r0, [pc, #368]	; (800104c <main+0x1b4>)
  8000edc:	f002 f838 	bl	8002f50 <HAL_TIM_PWM_Start>
 
-  TIM1->CCR1 = 20;
+
+  TIM1->CCR1 = 40;
  8000ee0:	4b5b      	ldr	r3, [pc, #364]	; (8001050 <main+0x1b8>)
- 8000ee2:	2214      	movs	r2, #20
+ 8000ee2:	2228      	movs	r2, #40	; 0x28
  8000ee4:	635a      	str	r2, [r3, #52]	; 0x34
-  TIM1->CCR2 = 20;
+  TIM1->CCR2 = 40;
  8000ee6:	4b5a      	ldr	r3, [pc, #360]	; (8001050 <main+0x1b8>)
- 8000ee8:	2214      	movs	r2, #20
+ 8000ee8:	2228      	movs	r2, #40	; 0x28
  8000eea:	639a      	str	r2, [r3, #56]	; 0x38
-  TIM1->CCR3 = 20;
+  TIM1->CCR3 = 40;
  8000eec:	4b58      	ldr	r3, [pc, #352]	; (8001050 <main+0x1b8>)
- 8000eee:	2214      	movs	r2, #20
+ 8000eee:	2228      	movs	r2, #40	; 0x28
  8000ef0:	63da      	str	r2, [r3, #60]	; 0x3c
-  TIM1->CCR4 = 20;
+  TIM1->CCR4 = 40;
  8000ef2:	4b57      	ldr	r3, [pc, #348]	; (8001050 <main+0x1b8>)
- 8000ef4:	2214      	movs	r2, #20
+ 8000ef4:	2228      	movs	r2, #40	; 0x28
  8000ef6:	641a      	str	r2, [r3, #64]	; 0x40
 
 
@@ -2241,6 +2242,9 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
  80012dc:	48000400 	.word	0x48000400
 
 080012e0 <HAL_TIM_MspPostInit>:
+  }
+
+}
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
 {
@@ -11472,12 +11476,11 @@ __weak void HAL_TIMEx_TransitionErrorCallback(TIM_HandleTypeDef *htim)
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef *huart)
-{
+{ /* Check the UART handle allocation */
  800471c:	b580      	push	{r7, lr}
  800471e:	b082      	sub	sp, #8
  8004720:	af00      	add	r7, sp, #0
  8004722:	6078      	str	r0, [r7, #4]
-  /* Check the UART handle allocation */
   if (huart == NULL)
  8004724:	687b      	ldr	r3, [r7, #4]
  8004726:	2b00      	cmp	r3, #0

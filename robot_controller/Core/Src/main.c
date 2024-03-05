@@ -48,10 +48,12 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
 
-  TIM1->CCR1 = 20;
-  TIM1->CCR2 = 20;
-  TIM1->CCR3 = 20;
-  TIM1->CCR4 = 20;
+
+  TIM1->CCR1 = 40;
+  TIM1->CCR2 = 40;
+  TIM1->CCR3 = 40;
+  TIM1->CCR4 = 40;
+
 
 
 

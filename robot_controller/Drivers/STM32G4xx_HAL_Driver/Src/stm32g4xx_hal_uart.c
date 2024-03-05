@@ -305,8 +305,7 @@ const uint16_t UARTPrescTable[12] = {1U, 2U, 4U, 6U, 8U, 10U, 12U, 16U, 32U, 64U
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef *huart)
-{
-  /* Check the UART handle allocation */
+{ /* Check the UART handle allocation */
   if (huart == NULL)
   {
     return HAL_ERROR;

@@ -139,7 +139,6 @@ void UsageFault_Handler(void)
   }
 }
 
-
 /**
   * @brief This function handles Debug monitor.
   */
