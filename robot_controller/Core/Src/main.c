@@ -26,15 +26,17 @@
 
 float rotate = 0;
 float speed = 0;
+uint16_t timer_counter = 0;
 int main(void)
 {
 
-  HAL_Init();
+    HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
   MX_USART1_UART_Init();
   MX_TIM1_Init();
+  MX_TIM4_Init();
   MX_TIM8_Init();
 
   HAL_TIM_Base_Start(&htim8);
@@ -43,11 +45,12 @@ int main(void)
   static __IO uint16_t pulseCounter = 0;
   static __IO uint16_t previous_pulseCounter = 0;
 
+
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
-
+  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 
   TIM1->CCR1 = 40;
   TIM1->CCR2 = 40;
@@ -70,23 +73,23 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-	  previous_pulseCounter = pulseCounter;
-	  pulseCounter = __HAL_TIM_GET_COUNTER(&htim8);
-	  diff = (pulseCounter - previous_pulseCounter);
-	  speed = (pulseCounter - previous_pulseCounter)/20;
-
-	  sprintf(message, "Dane to %d \n\r", (int)round(speed));
-	  sprintf(&(message[strlen(message)]), "pulse to %d \n\r", (int)round(pulseCounter));
-	  sprintf(&(message[strlen(message)]), "roznica to %d \n\r", (int)round(diff));
-
-	  HAL_UART_Receive(&hlpuart1, received_data, 3, 100);
-	  sscanf((char*)received_data, "%d", &received_data_int);
-
-	  sprintf(&(message[strlen(message)]), "to %d \n\r", received_data_int);
-
-	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
-	  HAL_Delay(1000);
+//    /* USER CODE END WHILE */
+//	  previous_pulseCounter = pulseCounter;
+//	  pulseCounter = __HAL_TIM_GET_COUNTER(&htim8);
+//	  diff = (pulseCounter - previous_pulseCounter);
+//	  speed = (pulseCounter - previous_pulseCounter)/20;
+//
+//	  sprintf(message, "Dane to %d \n\r", (int)round(speed));
+//	  sprintf(&(message[strlen(message)]), "pulse to %d \n\r", (int)round(pulseCounter));
+//	  sprintf(&(message[strlen(message)]), "roznica to %d \n\r", (int)round(diff));
+//
+//	  HAL_UART_Receive(&hlpuart1, received_data, 3, 100);
+//	  sscanf((char*)received_data, "%d", &received_data_int);
+//
+//	  sprintf(&(message[strlen(message)]), "to %d \n\r", received_data_int);
+//
+//	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
+//	  HAL_Delay(1000);
 
 
 
@@ -106,15 +109,20 @@ int main(void)
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
+//  /* USER CODE BEGIN Callback 0 */
+//  if (htim->Instance == TIM6) {
+//	HAL_IncTick();
+//
+//  }
+//  /* USER CODE END Callback 0 */
+//
+//
+//
+//  /* USER CODE BEGIN Callback 1 */
+//  if (htim->Instance == TIM4) {
+  timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
+//  }
+//  /* USER CODE END Callback 1 */
 }
 
 /**
