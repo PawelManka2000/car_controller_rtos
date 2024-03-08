@@ -22,15 +22,33 @@
 #include "gpio_configuration.h"
 #include "uart_configuration.h"
 #include "timers_configuration.h"
+#include "encoder_driver.h"
+#include "engine_driver.h"
 
 
 float rotate = 0;
 float speed = 0;
 uint16_t timer_counter = 0;
+
+
+EngineInfo wheel_info;
+
+void init_wheel_information(EngineInfo* wheel_info, EncoderInfo* encoder_info){
+
+//	int velocity = 0;
+//	int position = 0;
+//	int last_position = 0;
+//	uint32_t last_counter_value = 0;
+
+	wheel_info->velocity = 0;
+
+}
+
+
 int main(void)
 {
 
-    HAL_Init();
+  HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
@@ -58,7 +76,7 @@ int main(void)
   TIM1->CCR4 = 40;
 
 
-
+  timer_counter = 1;
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
@@ -66,8 +84,11 @@ int main(void)
 
   char message[100];
   static int diff;
-  static uint8_t received_data[3];
   static int received_data_int;
+
+  init_wheel_information(&wheel_info, &htim4);
+
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -89,7 +110,7 @@ int main(void)
 //	  sprintf(&(message[strlen(message)]), "to %d \n\r", received_data_int);
 //
 //	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
-//	  HAL_Delay(1000);
+	  HAL_Delay(1000);
 
 
 
@@ -97,6 +118,21 @@ int main(void)
   }
 
 }
+
+
+//void count_new_position(EngineInfo* engine_info){
+//
+//
+//	encoder_counter = __HAL_TIM_GET_COUNTER(htim);
+//	int position_difference = encoder_counter - current_enc_info->last_counter_value;
+//	int position = position_difference + position;
+//
+//	new_position = current_enc_info->position +  position_difference;
+//	current_enc_info->position = new_position;
+//
+//
+//}
+//
 
 
 /**
@@ -109,19 +145,12 @@ int main(void)
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-//  /* USER CODE BEGIN Callback 0 */
-//  if (htim->Instance == TIM6) {
-//	HAL_IncTick();
-//
-//  }
-//  /* USER CODE END Callback 0 */
-//
-//
-//
-//  /* USER CODE BEGIN Callback 1 */
-//  if (htim->Instance == TIM4) {
+
+
   timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
-//  }
+
+
+
 //  /* USER CODE END Callback 1 */
 }
 

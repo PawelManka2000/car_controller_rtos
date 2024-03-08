@@ -6,18 +6,24 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/Drivers/clock_configuration.c \
+../Core/Src/Drivers/encoder_driver.c \
+../Core/Src/Drivers/engine_driver.c \
 ../Core/Src/Drivers/gpio_configuration.c \
 ../Core/Src/Drivers/timer_configuration.c \
 ../Core/Src/Drivers/uart_configuration.c 
 
 OBJS += \
 ./Core/Src/Drivers/clock_configuration.o \
+./Core/Src/Drivers/encoder_driver.o \
+./Core/Src/Drivers/engine_driver.o \
 ./Core/Src/Drivers/gpio_configuration.o \
 ./Core/Src/Drivers/timer_configuration.o \
 ./Core/Src/Drivers/uart_configuration.o 
 
 C_DEPS += \
 ./Core/Src/Drivers/clock_configuration.d \
+./Core/Src/Drivers/encoder_driver.d \
+./Core/Src/Drivers/engine_driver.d \
 ./Core/Src/Drivers/gpio_configuration.d \
 ./Core/Src/Drivers/timer_configuration.d \
 ./Core/Src/Drivers/uart_configuration.d 
@@ -30,7 +36,7 @@ Core/Src/Drivers/%.o Core/Src/Drivers/%.su Core/Src/Drivers/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-Drivers
 
 clean-Core-2f-Src-2f-Drivers:
-	-$(RM) ./Core/Src/Drivers/clock_configuration.cyclo ./Core/Src/Drivers/clock_configuration.d ./Core/Src/Drivers/clock_configuration.o ./Core/Src/Drivers/clock_configuration.su ./Core/Src/Drivers/gpio_configuration.cyclo ./Core/Src/Drivers/gpio_configuration.d ./Core/Src/Drivers/gpio_configuration.o ./Core/Src/Drivers/gpio_configuration.su ./Core/Src/Drivers/timer_configuration.cyclo ./Core/Src/Drivers/timer_configuration.d ./Core/Src/Drivers/timer_configuration.o ./Core/Src/Drivers/timer_configuration.su ./Core/Src/Drivers/uart_configuration.cyclo ./Core/Src/Drivers/uart_configuration.d ./Core/Src/Drivers/uart_configuration.o ./Core/Src/Drivers/uart_configuration.su
+	-$(RM) ./Core/Src/Drivers/clock_configuration.cyclo ./Core/Src/Drivers/clock_configuration.d ./Core/Src/Drivers/clock_configuration.o ./Core/Src/Drivers/clock_configuration.su ./Core/Src/Drivers/encoder_driver.cyclo ./Core/Src/Drivers/encoder_driver.d ./Core/Src/Drivers/encoder_driver.o ./Core/Src/Drivers/encoder_driver.su ./Core/Src/Drivers/engine_driver.cyclo ./Core/Src/Drivers/engine_driver.d ./Core/Src/Drivers/engine_driver.o ./Core/Src/Drivers/engine_driver.su ./Core/Src/Drivers/gpio_configuration.cyclo ./Core/Src/Drivers/gpio_configuration.d ./Core/Src/Drivers/gpio_configuration.o ./Core/Src/Drivers/gpio_configuration.su ./Core/Src/Drivers/timer_configuration.cyclo ./Core/Src/Drivers/timer_configuration.d ./Core/Src/Drivers/timer_configuration.o ./Core/Src/Drivers/timer_configuration.su ./Core/Src/Drivers/uart_configuration.cyclo ./Core/Src/Drivers/uart_configuration.d ./Core/Src/Drivers/uart_configuration.o ./Core/Src/Drivers/uart_configuration.su
 
 .PHONY: clean-Core-2f-Src-2f-Drivers
 

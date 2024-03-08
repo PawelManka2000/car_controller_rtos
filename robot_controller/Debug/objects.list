@@ -1,4 +1,6 @@
 "./Core/Src/Drivers/clock_configuration.o"
+"./Core/Src/Drivers/encoder_driver.o"
+"./Core/Src/Drivers/engine_driver.o"
 "./Core/Src/Drivers/gpio_configuration.o"
 "./Core/Src/Drivers/timer_configuration.o"
 "./Core/Src/Drivers/uart_configuration.o"
