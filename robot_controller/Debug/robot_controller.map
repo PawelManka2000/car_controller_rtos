@@ -5808,31 +5808,31 @@ LOAD C:/ST/STM32CubeIDE_1.14.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000000000026659       0x17 ./FreeRTOS/Source/tasks.o
  .debug_macro   0x0000000000026670      0x1a7 ./FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
 
-.debug_line     0x0000000000000000    0x18261
+.debug_line     0x0000000000000000    0x18265
  .debug_line    0x0000000000000000      0x822 ./Core/Src/Drivers/clock_configuration.o
  .debug_line    0x0000000000000822      0x7ea ./Core/Src/Drivers/encoder_driver.o
  .debug_line    0x000000000000100c      0x8b1 ./Core/Src/Drivers/engine_driver.o
  .debug_line    0x00000000000018bd      0x807 ./Core/Src/Drivers/gpio_configuration.o
  .debug_line    0x00000000000020c4      0x996 ./Core/Src/Drivers/timer_configuration.o
  .debug_line    0x0000000000002a5a      0x87b ./Core/Src/Drivers/uart_configuration.o
- .debug_line    0x00000000000032d5      0x8d0 ./Core/Src/main.o
- .debug_line    0x0000000000003ba5      0x917 ./Core/Src/stm32g4xx_hal_msp.o
- .debug_line    0x00000000000044bc      0x7d4 ./Core/Src/stm32g4xx_hal_timebase_tim.o
- .debug_line    0x0000000000004c90      0x836 ./Core/Src/stm32g4xx_it.o
- .debug_line    0x00000000000054c6      0x7d3 ./Core/Src/system_stm32g4xx.o
- .debug_line    0x0000000000005c99       0x7b ./Core/Startup/startup_stm32g474retx.o
- .debug_line    0x0000000000005d14      0xb92 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
- .debug_line    0x00000000000068a6      0xcfd ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o
- .debug_line    0x00000000000075a3      0xb8d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o
- .debug_line    0x0000000000008130      0xd01 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o
- .debug_line    0x0000000000008e31      0xf5a ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o
- .debug_line    0x0000000000009d8b     0x126d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o
- .debug_line    0x000000000000aff8     0x402e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o
- .debug_line    0x000000000000f026     0x2195 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o
- .debug_line    0x00000000000111bb     0x3bda ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o
- .debug_line    0x0000000000014d95      0xdb5 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o
- .debug_line    0x0000000000015b4a     0x1e46 ./FreeRTOS/Source/tasks.o
- .debug_line    0x0000000000017990      0x8d1 ./FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_line    0x00000000000032d5      0x8d4 ./Core/Src/main.o
+ .debug_line    0x0000000000003ba9      0x917 ./Core/Src/stm32g4xx_hal_msp.o
+ .debug_line    0x00000000000044c0      0x7d4 ./Core/Src/stm32g4xx_hal_timebase_tim.o
+ .debug_line    0x0000000000004c94      0x836 ./Core/Src/stm32g4xx_it.o
+ .debug_line    0x00000000000054ca      0x7d3 ./Core/Src/system_stm32g4xx.o
+ .debug_line    0x0000000000005c9d       0x7b ./Core/Startup/startup_stm32g474retx.o
+ .debug_line    0x0000000000005d18      0xb92 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
+ .debug_line    0x00000000000068aa      0xcfd ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o
+ .debug_line    0x00000000000075a7      0xb8d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o
+ .debug_line    0x0000000000008134      0xd01 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o
+ .debug_line    0x0000000000008e35      0xf5a ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o
+ .debug_line    0x0000000000009d8f     0x126d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o
+ .debug_line    0x000000000000affc     0x402e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o
+ .debug_line    0x000000000000f02a     0x2195 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o
+ .debug_line    0x00000000000111bf     0x3bda ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o
+ .debug_line    0x0000000000014d99      0xdb5 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o
+ .debug_line    0x0000000000015b4e     0x1e46 ./FreeRTOS/Source/tasks.o
+ .debug_line    0x0000000000017994      0x8d1 ./FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o
 
 .debug_str      0x0000000000000000   0x1026bb
  .debug_str     0x0000000000000000    0xf275c ./Core/Src/Drivers/clock_configuration.o

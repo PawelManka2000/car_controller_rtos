@@ -33,7 +33,7 @@ uint16_t timer_counter = 0;
 
 //EngineInfo engine_info;
 EncoderInfo encoder_info = {.counter_value = 0, .last_counter_value =0, .encoder_timer =&htim4 };
-EngineInfo engine_info = {.encoder_info = &encoder_info};
+EngineInfo engine_info = {.encoder_info = &encoder_info, .engine_updater_tim=&htim7};
 
 //void init_encoder_info(EncoderInfo* encoder_info, TIM_HandleTypeDef* htim)
 //{
@@ -65,8 +65,6 @@ int main(void)
   HAL_TIM_Base_Start(&htim8);
   /* USER CODE BEGIN 2 */
 
-  static __IO uint16_t pulseCounter = 0;
-  static __IO uint16_t previous_pulseCounter = 0;
 
 
   HAL_TIM_Base_Start_IT(&htim7);
@@ -126,22 +124,6 @@ int main(void)
 
 
 
-
-//void count_new_position(EngineInfo* engine_info){
-//
-//
-//	encoder_counter = __HAL_TIM_GET_COUNTER(htim);
-//	int position_difference = encoder_counter - current_enc_info->last_counter_value;
-//	int position = position_difference + position;
-//
-//	new_position = current_enc_info->position +  position_difference;
-//	current_enc_info->position = new_position;
-//
-//
-//}
-//
-
-
 /**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM6 interrupt took place, inside
@@ -153,14 +135,11 @@ int main(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
-    if (htim->Instance == TIM7) {
+    if (htim->Instance == (TIM_TypeDef *)engine_info.engine_updater_tim->Instance) {
 
     	update_position(&engine_info);
         timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
     }
-
-
-//    update_encoder_info(&encoder_info);
 
 
 
