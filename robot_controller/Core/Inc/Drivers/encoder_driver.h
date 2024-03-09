@@ -9,6 +9,7 @@
 #define INC_DRIVERS_ENCODER_DRIVER_H_
 
 #include "stm32g4xx_hal.h"
+
 typedef struct{
 
 	TIM_HandleTypeDef* encoder_timer;

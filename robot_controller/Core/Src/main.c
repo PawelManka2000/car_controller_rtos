@@ -31,19 +31,23 @@ float speed = 0;
 uint16_t timer_counter = 0;
 
 
-EngineInfo wheel_info;
+//EngineInfo engine_info;
+EncoderInfo encoder_info = {.counter_value = 0, .last_counter_value =0, .encoder_timer =&htim4 };
+EngineInfo engine_info = {.encoder_info = &encoder_info};
 
-void init_wheel_information(EngineInfo* wheel_info, EncoderInfo* encoder_info){
-
-//	int velocity = 0;
-//	int position = 0;
-//	int last_position = 0;
-//	uint32_t last_counter_value = 0;
-
-	wheel_info->velocity = 0;
-
-}
-
+//void init_encoder_info(EncoderInfo* encoder_info, TIM_HandleTypeDef* htim)
+//{
+//	encoder_info->counter_value = 0;
+//	encoder_info->last_counter_value = 0;
+//	encoder_info->encoder_timer = htim;
+//}
+//
+//
+//void init_engine_info(EngineInfo* engine_info, EncoderInfo* const encoder_info)
+//{
+//	engine_info->encoder_info = *encoder_info;
+//}
+//
 
 int main(void)
 {
@@ -86,8 +90,6 @@ int main(void)
   static int diff;
   static int received_data_int;
 
-  init_wheel_information(&wheel_info, &htim4);
-
 
 
   /* Infinite loop */
@@ -110,6 +112,7 @@ int main(void)
 //	  sprintf(&(message[strlen(message)]), "to %d \n\r", received_data_int);
 //
 //	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
+
 	  HAL_Delay(1000);
 
 
@@ -118,6 +121,8 @@ int main(void)
   }
 
 }
+
+
 
 
 //void count_new_position(EngineInfo* engine_info){
@@ -146,8 +151,10 @@ int main(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
+	update_position(&engine_info);
+    timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
 
-  timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
+//    update_encoder_info(&encoder_info);
 
 
 

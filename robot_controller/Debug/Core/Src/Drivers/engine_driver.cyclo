@@ -1,2 +1,2 @@
-../Core/Src/Drivers/engine_driver.c:10:6:update_position	1
-../Core/Src/Drivers/engine_driver.c:18:9:rotary_displacement	1
+../Core/Src/Drivers/engine_driver.c:10:6:update_position	5
+../Core/Src/Drivers/engine_driver.c:49:9:rotary_displacement	1

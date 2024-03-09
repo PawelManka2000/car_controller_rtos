@@ -15,8 +15,8 @@ typedef struct{
 	int16_t velocity;
 	int32_t position;
 	int32_t last_position;
-	EncoderInfo encoder_info;
-	TIM_HandleTypeDef* engine_updater_timer;
+	EncoderInfo* encoder_info;
+	TIM_HandleTypeDef* engine_updater_tim;
 
 }EngineInfo;
 
