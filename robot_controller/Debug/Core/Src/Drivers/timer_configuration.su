@@ -1,3 +1,4 @@
-../Core/Src/Drivers/timer_configuration.c:16:6:MX_TIM1_Init	120	static
-../Core/Src/Drivers/timer_configuration.c:103:6:MX_TIM4_Init	56	static
-../Core/Src/Drivers/timer_configuration.c:152:6:MX_TIM8_Init	40	static
+../Core/Src/Drivers/timer_configuration.c:17:6:MX_TIM1_Init	120	static
+../Core/Src/Drivers/timer_configuration.c:104:6:MX_TIM4_Init	56	static
+../Core/Src/Drivers/timer_configuration.c:148:6:MX_TIM7_Init	24	static
+../Core/Src/Drivers/timer_configuration.c:186:6:MX_TIM8_Init	40	static

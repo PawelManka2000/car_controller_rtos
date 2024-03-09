@@ -59,6 +59,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM1_Init();
   MX_TIM4_Init();
+  MX_TIM7_Init();
   MX_TIM8_Init();
 
   HAL_TIM_Base_Start(&htim8);
@@ -68,6 +69,7 @@ int main(void)
   static __IO uint16_t previous_pulseCounter = 0;
 
 
+  HAL_TIM_Base_Start_IT(&htim7);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
@@ -151,8 +153,12 @@ int main(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
-	update_position(&engine_info);
-    timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
+    if (htim->Instance == TIM7) {
+
+    	update_position(&engine_info);
+        timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
+    }
+
 
 //    update_encoder_info(&encoder_info);
 
