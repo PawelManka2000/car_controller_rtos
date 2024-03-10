@@ -1,0 +1,3 @@
+../Core/Src/Drivers/motor_driver.c:12:6:update_position	40	static
+../Core/Src/Drivers/motor_driver.c:51:6:update_velocity	24	static
+../Core/Src/Drivers/motor_driver.c:61:7:rotary_displacement	16	static

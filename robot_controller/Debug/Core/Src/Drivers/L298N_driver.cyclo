@@ -1,0 +1,2 @@
+../Core/Src/Drivers/L298N_driver.c:11:6:L298N_update_pwm	6
+../Core/Src/Drivers/L298N_driver.c:19:6:L298N_set_input_configuration	4

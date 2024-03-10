@@ -17,13 +17,13 @@
   */
 
 /* USER CODE BEGIN 3 */
+#include <motor_driver.h>
+#include <timers_configuration.h>
 #include "main.h"
 #include "clock_configuration.h"
 #include "gpio_configuration.h"
 #include "uart_configuration.h"
-#include "timers_configuration.h"
 #include "encoder_driver.h"
-#include "engine_driver.h"
 
 
 float rotate = 0;
@@ -33,21 +33,16 @@ uint16_t timer_counter = 0;
 
 //EngineInfo engine_info;
 EncoderInfo encoder_info = {.counter_value = 0, .last_counter_value =0, .encoder_timer =&htim4 };
-EngineInfo engine_info = {.encoder_info = &encoder_info, .engine_updater_tim=&htim7};
+MotorInfo engine_info = {.encoder_info = &encoder_info, .engine_updater_tim=&htim7};
+L298N_driver L298N_left_back = {
+		.pwm_timer = &htim1,
+		.pwm_channel=TIM_CHANNEL_1,
+		.GPIOx_1 = GPIOA,
+		.GPIOx_2 = GPIOA,
+		.GPIO_Pin_1 = GPIO_PIN_0,
+		.GPIO_Pin_2 = GPIO_PIN_1
+};
 
-//void init_encoder_info(EncoderInfo* encoder_info, TIM_HandleTypeDef* htim)
-//{
-//	encoder_info->counter_value = 0;
-//	encoder_info->last_counter_value = 0;
-//	encoder_info->encoder_timer = htim;
-//}
-//
-//
-//void init_engine_info(EngineInfo* engine_info, EncoderInfo* const encoder_info)
-//{
-//	engine_info->encoder_info = *encoder_info;
-//}
-//
 
 int main(void)
 {
@@ -65,6 +60,8 @@ int main(void)
   HAL_TIM_Base_Start(&htim8);
   /* USER CODE BEGIN 2 */
 
+  static __IO uint16_t pulseCounter = 0;
+  static __IO uint16_t previous_pulseCounter = 0;
 
 
   HAL_TIM_Base_Start_IT(&htim7);
@@ -74,7 +71,11 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 
-  TIM1->CCR1 = 40;
+
+
+  L298N_update_pwm(&L298N_left_back, 30);
+  L298N_set_input_configuration(&L298N_left_back, FORWARD);
+
   TIM1->CCR2 = 40;
   TIM1->CCR3 = 40;
   TIM1->CCR4 = 40;
@@ -82,11 +83,9 @@ int main(void)
 
   timer_counter = 1;
 
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
-  char message[100];
+  static char message[100];
   static int diff;
   static int received_data_int;
 
@@ -96,6 +95,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
 //    /* USER CODE END WHILE */
 //	  previous_pulseCounter = pulseCounter;
 //	  pulseCounter = __HAL_TIM_GET_COUNTER(&htim8);
@@ -114,7 +114,6 @@ int main(void)
 //	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
 
 	  HAL_Delay(1000);
-
 
 
 
@@ -138,6 +137,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == (TIM_TypeDef *)engine_info.engine_updater_tim->Instance) {
 
     	update_position(&engine_info);
+    	update_velocity(&engine_info);
+//    	sprintf(&(message[strlen(message)]), "%f", engine_info->measured_velocity);
+//    	HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
+
         timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
     }
 

@@ -1,2 +1,0 @@
-../Core/Src/Drivers/uart_configuration.c:7:6:MX_LPUART1_UART_Init	8	static
-../Core/Src/Drivers/uart_configuration.c:43:6:MX_USART1_UART_Init	8	static

@@ -14,7 +14,9 @@ RM := rm -rf
 -include FreeRTOS/Source/subdir.mk
 -include Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/Features/subdir.mk
 -include Core/Src/Drivers/subdir.mk
+-include Core/Src/Configuration/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -65,7 +67,7 @@ main-build: robot_controller.elf secondary-outputs
 
 # Tool invocations
 robot_controller.elf robot_controller.map: $(OBJS) $(USER_OBJS) C:\Users\pawel\Documents\projects\stm_workspace\ws1\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "robot_controller.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\pawel\Documents\projects\stm_workspace\ws1\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot_controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "robot_controller.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\pawel\Documents\projects\stm_workspace\ws1\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot_controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
