@@ -20,6 +20,6 @@ typedef struct
 
 void pid_init(PIDController *pid_data, float kp_init, float ki_init, float kd_init, int anti_windup_limit_init);
 void pid_reset(PIDController *pid_data);
-int pid_calculate(PIDController *pid_data, int setpoint, int process_variable);
+int pid_calculate(PIDController *pid_data, float setpoint, float process_variable);
 
 #endif /* INC_DRIVERS_PID_CONTROLLER_H_ */

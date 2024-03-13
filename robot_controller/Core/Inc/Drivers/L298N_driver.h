@@ -35,7 +35,7 @@ typedef struct{
 }L298N_driver;
 
 
-void L298N_update_pwm(L298N_driver* L298_driver, int pwm_count);
+void L298N_update_pwm(L298N_driver* L298_driver, uint8_t pwm_count);
 
 
 void L298N_set_input_configuration(L298N_driver* L298_driver, E_L298N_MODE l298n_mode);

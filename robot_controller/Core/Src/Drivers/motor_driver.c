@@ -9,6 +9,39 @@
 #include "timers_configuration.h"
 #include "engine_features.h"
 
+
+void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param, PIDController *pid_controller_, L298N_driver *L298N_)
+{
+	motor->engine_updater_tim = updater_tim;
+	motor->encoder_info = enc_inf_param;
+	motor->measured_velocity = 0;
+	motor->set_velocity = 0;
+	motor->L298N_driver = L298N_;
+	motor->pid_controller = pid_controller_;
+
+}
+
+
+void regulate_velocity(MotorInfo *motor_info)
+{
+	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, motor_info->measured_velocity);
+	motor_info->current_PWM = saturate_pwm(pwm_value);
+	L298N_update_pwm(motor_info->L298N_driver, motor_info->current_PWM);
+
+}
+
+uint8_t saturate_pwm(int pwm_value){
+
+
+	if (pwm_value < 0){
+		pwm_value = 0;
+	}else if(pwm_value > 100){
+		pwm_value = 100;
+	}
+	return (uint8_t)pwm_value;
+
+}
+
 void update_position(MotorInfo* eng_info)
 {
 
@@ -46,10 +79,13 @@ void update_position(MotorInfo* eng_info)
 
 }
 
+void set_velocity(MotorInfo *motor, float velocity)
+{
+	motor->set_velocity = velocity;
+}
 
-
-void update_velocity(MotorInfo* eng_info){
-
+void update_measured_velocity(MotorInfo* eng_info)
+{
 	float rotary_displacement_ = rotary_displacement(eng_info);
 	float updater_timer_periods = CountPeriodS(eng_info->engine_updater_tim);
 

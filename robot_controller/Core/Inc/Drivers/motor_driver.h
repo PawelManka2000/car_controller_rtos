@@ -13,18 +13,18 @@
 #include "pid_controller.h"
 #include "L298N_driver.h"
 
-#define MOTOR_Kp					4.5
-#define MOTOR_Ki					0.8
-#define MOTOR_Kd					0.5
-#define MOTOR_ANTI_WINDUP			        1000
+#define MOTOR_Kp			0.6
+#define MOTOR_Ki			5
+#define MOTOR_Kd			0
+#define MOTOR_ANTI_WINDUP	1000
 
 typedef struct{
 
 	float measured_velocity;
 	float set_velocity;
 
-	int actual_PWM;
-	PIDController pid_controller;
+	uint8_t current_PWM;
+	PIDController* pid_controller;
 
 	float position;
 	float last_position;
@@ -35,46 +35,18 @@ typedef struct{
 }MotorInfo;
 
 
-//void init_motor_info(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param)
-//{
-//	motor->engine_updater_tim = updater_tim;
-//	motor->encoder_info = enc_inf_param;
-//	motor->measured_velocity = 0;
-//	motor->set_velocity = 0;
-//	motor->L298N_driver = 0;
-//}
-//
-//void motor_calculate_speed(MotorInfo *motor)
-//{
-////	motor_update_count(m);
-////
-////	m->measured_speed = (m->pulse_count * TIMER_FREQENCY * SECOND_IN_MINUTE) / m->resolution;
-////
-////	int output = pid_calculate(&(m->pid_controller), m->set_speed, m->measured_speed);
-////
-////	m->actual_PWM += output;
-////
-////	if(m->actual_PWM >= 0)
-////	{
-////		drv8835_set_motorA_direction(CW);
-////		drv8835_set_motorA_speed(m->actual_PWM);
-////	}
-////	else
-////	{
-////		drv8835_set_motorA_direction(CCW);
-////		drv8835_set_motorA_speed(-m->actual_PWM);
-////	}
-//}
+void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param, PIDController *pid_controller_, L298N_driver *L298N_);
 
+void regulate_velocity(MotorInfo *motor);
 
-
-
+void set_velocity(MotorInfo *motor, float velocity);
 
 float rotary_displacement(MotorInfo* eng_info);
 
 void update_position(MotorInfo* eng_info);
 
-void update_velocity(MotorInfo* eng_info);
+void update_measured_velocity(MotorInfo* eng_info);
 
+uint8_t saturate_pwm(int pwm_value);
 
 #endif /* INC_DRIVERS_MOTOR_DRIVER_H_ */
