@@ -34,6 +34,7 @@ Core/Src/Drivers/motor_driver.o: ../Core/Src/Drivers/motor_driver.c \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/low_pass_filter.h \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/engine_features.h
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h:
@@ -70,4 +71,5 @@ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_co
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/low_pass_filter.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/engine_features.h:

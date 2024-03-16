@@ -4,6 +4,7 @@
 "./Core/Src/Configuration/uart_configuration.o"
 "./Core/Src/Drivers/L298N_driver.o"
 "./Core/Src/Drivers/encoder_driver.o"
+"./Core/Src/Drivers/low_pass_filter.o"
 "./Core/Src/Drivers/motor_driver.o"
 "./Core/Src/Drivers/pid_controller.o"
 "./Core/Src/Features/engine_features.o"

@@ -30,11 +30,12 @@ float rotate = 0;
 float speed = 0;
 uint16_t timer_counter = 0;
 char message[100];
-
+float filtered_velocity = 0;
 //EngineInfo motor;
 EncoderInfo encoder_info = {.counter_value = 0, .last_counter_value =0, .encoder_timer =&htim4 };
 MotorInfo motor;
 PIDController pid_controller;
+LowPassFilter low_pass_filter;
 
 L298N_driver L298N_left_back = {
 		.pwm_timer = &htim1,
@@ -44,7 +45,7 @@ L298N_driver L298N_left_back = {
 		.GPIO_Pin_1 = GPIO_PIN_0,
 		.GPIO_Pin_2 = GPIO_PIN_1
 };
-int period;
+float period;
 float updater_timer_periods;
 
 int main(void)
@@ -62,8 +63,11 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM8_Init();
 
+
+
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
-  init_motor(&motor, &htim7, &encoder_info, &pid_controller, &L298N_left_back);
+  init_low_pass_filter(&low_pass_filter);
+  init_motor(&motor, &htim7, &encoder_info, &pid_controller, &L298N_left_back, &low_pass_filter);
 
   /* USER CODE BEGIN 2 */
 
@@ -81,19 +85,15 @@ int main(void)
 
 
   L298N_set_input_configuration(&L298N_left_back, FORWARD);
-  set_velocity(&motor, 4);
+  L298N_update_pwm(&L298N_left_back, 30);
+//  set_velocity(&motor, 4);
 
   TIM1->CCR2 = 40;
   TIM1->CCR3 = 40;
   TIM1->CCR4 = 40;
 
 
-  timer_counter = 1;
-
   /* USER CODE END 2 */
-
-  static int diff;
-  static int received_data_int;
 
   period = CountPeriodS(&htim7);
 
@@ -124,14 +124,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     	update_position(&motor);
     	update_measured_velocity(&motor);
-    	regulate_velocity(&motor);
+    	filtered_velocity = update_low_pass_filter(motor.low_pass_filter, motor.measured_velocity);
+//    	regulate_velocity(&motor);
+
+
+
 
 //
 
 //        timer_counter = __HAL_TIM_GET_COUNTER(&htim4);
 //        updater_timer_periods = CountPeriodS(motor.engine_updater_tim);
-//  	    sprintf(message, "%.3f ", motor.measured_velocity);
-//  	    HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
+//  	  sprintf(message, "%.3f ", motor.measured_velocity);
+//  	  HAL_UART_Transmit(&hlpuart1, (uint8_t *)message, strlen(message), HAL_MAX_DELAY);
     }
 
 

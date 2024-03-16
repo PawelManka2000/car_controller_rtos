@@ -10,20 +10,26 @@
 #include "engine_features.h"
 
 
-void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param, PIDController *pid_controller_, L298N_driver *L298N_)
+void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param, PIDController *pid_controller_, L298N_driver *L298N_, LowPassFilter* low_pass_filter_)
 {
 	motor->engine_updater_tim = updater_tim;
+	motor->updater_timer_period = CountPeriodS(motor->engine_updater_tim);
 	motor->encoder_info = enc_inf_param;
 	motor->measured_velocity = 0;
 	motor->set_velocity = 0;
 	motor->L298N_driver = L298N_;
 	motor->pid_controller = pid_controller_;
+	motor->low_pass_filter = low_pass_filter_;
+
 
 }
 
 
 void regulate_velocity(MotorInfo *motor_info)
 {
+
+//	float filtered_velocity = update_low_pass_filter(motor->low_pass_filter, motor_info->measured_velocity);
+//	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, filtered_velocity);
 	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, motor_info->measured_velocity);
 	motor_info->current_PWM = saturate_pwm(pwm_value);
 	L298N_update_pwm(motor_info->L298N_driver, motor_info->current_PWM);
@@ -42,11 +48,11 @@ uint8_t saturate_pwm(int pwm_value){
 
 }
 
-void update_position(MotorInfo* eng_info)
+void update_position(MotorInfo* motor_info)
 {
 
-	eng_info->last_position = eng_info->position;
-	EncoderInfo* encoder_info = eng_info->encoder_info;
+	motor_info->last_position = motor_info->position;
+	EncoderInfo* encoder_info = motor_info->encoder_info;
 	update_encoder_info(encoder_info);
 	int16_t encoder_diff = encoder_info->counter_value - encoder_info->last_counter_value;
 	int16_t position_change = 0;
@@ -75,7 +81,7 @@ void update_position(MotorInfo* eng_info)
 	}
 
 	float position_change_rad = convert_to_radians(position_change);
-	eng_info->position = eng_info->last_position - position_change_rad;
+	motor_info->position = motor_info->last_position - position_change_rad;
 
 }
 
@@ -84,12 +90,10 @@ void set_velocity(MotorInfo *motor, float velocity)
 	motor->set_velocity = velocity;
 }
 
-void update_measured_velocity(MotorInfo* eng_info)
+void update_measured_velocity(MotorInfo* motor)
 {
-	float rotary_displacement_ = rotary_displacement(eng_info);
-	float updater_timer_periods = CountPeriodS(eng_info->engine_updater_tim);
-
-	eng_info->measured_velocity = (float)rotary_displacement_ /updater_timer_periods;
+	float rotary_displacement_ = rotary_displacement(motor);
+	motor->measured_velocity = (float)rotary_displacement_ /motor->updater_timer_period;
 
 }
 

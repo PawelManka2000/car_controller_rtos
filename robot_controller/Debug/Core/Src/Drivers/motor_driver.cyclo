@@ -1,7 +1,7 @@
 ../Core/Src/Drivers/motor_driver.c:13:6:init_motor	1
-../Core/Src/Drivers/motor_driver.c:25:6:regulate_velocity	1
-../Core/Src/Drivers/motor_driver.c:33:9:saturate_pwm	3
-../Core/Src/Drivers/motor_driver.c:45:6:update_position	5
-../Core/Src/Drivers/motor_driver.c:82:6:set_velocity	1
-../Core/Src/Drivers/motor_driver.c:87:6:update_measured_velocity	1
-../Core/Src/Drivers/motor_driver.c:97:7:rotary_displacement	1
+../Core/Src/Drivers/motor_driver.c:28:6:regulate_velocity	1
+../Core/Src/Drivers/motor_driver.c:39:9:saturate_pwm	3
+../Core/Src/Drivers/motor_driver.c:51:6:update_position	5
+../Core/Src/Drivers/motor_driver.c:88:6:set_velocity	1
+../Core/Src/Drivers/motor_driver.c:93:6:update_measured_velocity	1
+../Core/Src/Drivers/motor_driver.c:101:7:rotary_displacement	1

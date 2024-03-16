@@ -7,18 +7,21 @@
 C_SRCS += \
 ../Core/Src/Drivers/L298N_driver.c \
 ../Core/Src/Drivers/encoder_driver.c \
+../Core/Src/Drivers/low_pass_filter.c \
 ../Core/Src/Drivers/motor_driver.c \
 ../Core/Src/Drivers/pid_controller.c 
 
 OBJS += \
 ./Core/Src/Drivers/L298N_driver.o \
 ./Core/Src/Drivers/encoder_driver.o \
+./Core/Src/Drivers/low_pass_filter.o \
 ./Core/Src/Drivers/motor_driver.o \
 ./Core/Src/Drivers/pid_controller.o 
 
 C_DEPS += \
 ./Core/Src/Drivers/L298N_driver.d \
 ./Core/Src/Drivers/encoder_driver.d \
+./Core/Src/Drivers/low_pass_filter.d \
 ./Core/Src/Drivers/motor_driver.d \
 ./Core/Src/Drivers/pid_controller.d 
 
@@ -30,7 +33,7 @@ Core/Src/Drivers/%.o Core/Src/Drivers/%.su Core/Src/Drivers/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-Drivers
 
 clean-Core-2f-Src-2f-Drivers:
-	-$(RM) ./Core/Src/Drivers/L298N_driver.cyclo ./Core/Src/Drivers/L298N_driver.d ./Core/Src/Drivers/L298N_driver.o ./Core/Src/Drivers/L298N_driver.su ./Core/Src/Drivers/encoder_driver.cyclo ./Core/Src/Drivers/encoder_driver.d ./Core/Src/Drivers/encoder_driver.o ./Core/Src/Drivers/encoder_driver.su ./Core/Src/Drivers/motor_driver.cyclo ./Core/Src/Drivers/motor_driver.d ./Core/Src/Drivers/motor_driver.o ./Core/Src/Drivers/motor_driver.su ./Core/Src/Drivers/pid_controller.cyclo ./Core/Src/Drivers/pid_controller.d ./Core/Src/Drivers/pid_controller.o ./Core/Src/Drivers/pid_controller.su
+	-$(RM) ./Core/Src/Drivers/L298N_driver.cyclo ./Core/Src/Drivers/L298N_driver.d ./Core/Src/Drivers/L298N_driver.o ./Core/Src/Drivers/L298N_driver.su ./Core/Src/Drivers/encoder_driver.cyclo ./Core/Src/Drivers/encoder_driver.d ./Core/Src/Drivers/encoder_driver.o ./Core/Src/Drivers/encoder_driver.su ./Core/Src/Drivers/low_pass_filter.cyclo ./Core/Src/Drivers/low_pass_filter.d ./Core/Src/Drivers/low_pass_filter.o ./Core/Src/Drivers/low_pass_filter.su ./Core/Src/Drivers/motor_driver.cyclo ./Core/Src/Drivers/motor_driver.d ./Core/Src/Drivers/motor_driver.o ./Core/Src/Drivers/motor_driver.su ./Core/Src/Drivers/pid_controller.cyclo ./Core/Src/Drivers/pid_controller.d ./Core/Src/Drivers/pid_controller.o ./Core/Src/Drivers/pid_controller.su
 
 .PHONY: clean-Core-2f-Src-2f-Drivers
 
