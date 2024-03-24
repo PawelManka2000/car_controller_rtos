@@ -67,7 +67,7 @@ void update_position(MotorInfo* eng_info)
 
 			int16_t postreload_count = encoder_info->counter_value;
 			int16_t prereload_count = __HAL_TIM_GET_AUTORELOAD(encoder_info->encoder_timer) - encoder_info->last_counter_value;
-			int16_t position_change = postreload_count + prereload_count;
+			position_change = postreload_count + prereload_count;
 
 		}else{
 			position_change = encoder_diff;

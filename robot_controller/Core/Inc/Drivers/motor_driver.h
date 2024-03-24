@@ -13,8 +13,8 @@
 #include "pid_controller.h"
 #include "L298N_driver.h"
 
-#define MOTOR_Kp			0.6
-#define MOTOR_Ki			5
+#define MOTOR_Kp			0.097
+#define MOTOR_Ki			4
 #define MOTOR_Kd			0
 #define MOTOR_ANTI_WINDUP	1000
 

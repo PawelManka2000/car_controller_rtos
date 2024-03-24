@@ -66,11 +66,6 @@ int main(void)
   init_motor(&motor, &htim7, &encoder_info, &pid_controller, &L298N_left_back);
 
   /* USER CODE BEGIN 2 */
-
-  static __IO uint16_t pulseCounter = 0;
-  static __IO uint16_t previous_pulseCounter = 0;
-
-
   HAL_TIM_Base_Start_IT(&htim7);
   HAL_TIM_Base_Start(&htim8);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
@@ -83,17 +78,16 @@ int main(void)
   L298N_set_input_configuration(&L298N_left_back, FORWARD);
   set_velocity(&motor, 4);
 
-  TIM1->CCR2 = 40;
-  TIM1->CCR3 = 40;
-  TIM1->CCR4 = 40;
+//  TIM1->CCR2 = 40;
+//  TIM1->CCR3 = 40;
+//  TIM1->CCR4 = 40;
 
 
   timer_counter = 1;
 
   /* USER CODE END 2 */
 
-  static int diff;
-  static int received_data_int;
+
 
   period = CountPeriodS(&htim7);
 
