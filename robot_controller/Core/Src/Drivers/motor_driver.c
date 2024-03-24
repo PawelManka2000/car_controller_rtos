@@ -28,9 +28,9 @@ void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *e
 void regulate_velocity(MotorInfo *motor_info)
 {
 
-//	float filtered_velocity = update_low_pass_filter(motor->low_pass_filter, motor_info->measured_velocity);
-//	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, filtered_velocity);
-	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, motor_info->measured_velocity);
+	float filtered_velocity = update_low_pass_filter(motor_info->low_pass_filter, motor_info->measured_velocity);
+	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, filtered_velocity);
+//	int pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, motor_info->measured_velocity);
 	motor_info->current_PWM = saturate_pwm(pwm_value);
 	L298N_update_pwm(motor_info->L298N_driver, motor_info->current_PWM);
 
@@ -47,6 +47,7 @@ uint8_t saturate_pwm(int pwm_value){
 	return (uint8_t)pwm_value;
 
 }
+//static int16_t position_change = 0;
 
 void update_position(MotorInfo* motor_info)
 {
@@ -73,15 +74,17 @@ void update_position(MotorInfo* motor_info)
 
 			int16_t postreload_count = encoder_info->counter_value;
 			int16_t prereload_count = __HAL_TIM_GET_AUTORELOAD(encoder_info->encoder_timer) - encoder_info->last_counter_value;
-			int16_t position_change = postreload_count + prereload_count;
+			position_change = postreload_count + prereload_count;
 
 		}else{
 			position_change = encoder_diff;
 		}
 	}
-
-	float position_change_rad = convert_to_radians(position_change);
-	motor_info->position = motor_info->last_position - position_change_rad;
+//	if(position_change == 0){
+//
+//	}
+//	float position_change_rad = convert_to_radians(position_change);
+	motor_info->position = motor_info->last_position + position_change;
 
 }
 

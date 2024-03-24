@@ -17,8 +17,8 @@
   */
 
 /* USER CODE BEGIN 3 */
-#include <motor_driver.h>
-#include <timers_configuration.h>
+#include "motor_driver.h"
+#include "timers_configuration.h"
 #include "main.h"
 #include "clock_configuration.h"
 #include "gpio_configuration.h"
@@ -47,6 +47,9 @@ L298N_driver L298N_left_back = {
 };
 float period;
 float updater_timer_periods;
+int16_t currentTime = 0;
+int32_t previoust_time = 0;
+int32_t difference = 0;
 
 int main(void)
 {
@@ -71,9 +74,6 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 
-  static __IO uint16_t pulseCounter = 0;
-  static __IO uint16_t previous_pulseCounter = 0;
-
 
   HAL_TIM_Base_Start_IT(&htim7);
   HAL_TIM_Base_Start(&htim8);
@@ -85,8 +85,8 @@ int main(void)
 
 
   L298N_set_input_configuration(&L298N_left_back, FORWARD);
-  L298N_update_pwm(&L298N_left_back, 30);
-//  set_velocity(&motor, 4);
+//  L298N_update_pwm(&L298N_left_back, 30);
+  set_velocity(&motor, 4);
 
   TIM1->CCR2 = 40;
   TIM1->CCR3 = 40;
@@ -95,7 +95,7 @@ int main(void)
 
   /* USER CODE END 2 */
 
-  period = CountPeriodS(&htim7);
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -125,7 +125,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     	update_position(&motor);
     	update_measured_velocity(&motor);
     	filtered_velocity = update_low_pass_filter(motor.low_pass_filter, motor.measured_velocity);
-//    	regulate_velocity(&motor);
+    	period = CountPeriodS(&htim7);
+
+    	currentTime = -currentTime +1;
+
+      	regulate_velocity(&motor);
 
 
 

@@ -13,8 +13,8 @@
 typedef struct{
 
 	TIM_HandleTypeDef* encoder_timer;
-	uint16_t counter_value;
-	uint16_t last_counter_value;
+	int16_t counter_value;
+	uint32_t last_counter_value;
 
 }EncoderInfo;
 
