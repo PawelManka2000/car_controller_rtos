@@ -25,6 +25,7 @@ typedef struct{
 
 	uint32_t pwm_channel;
 	TIM_HandleTypeDef* pwm_timer;
+	uint8_t current_PWM;
 
 	GPIO_TypeDef *GPIOx_1;
 	uint16_t GPIO_Pin_1;
@@ -34,9 +35,15 @@ typedef struct{
 
 }L298N_driver;
 
+void L298N_init(L298N_driver* L298N_driver,
+				uint32_t pwm_channel_,
+				TIM_HandleTypeDef* pwm_timer_,
+				GPIO_TypeDef* GPIOx_1_,
+				uint16_t GPIO_Pin_1_,
+				GPIO_TypeDef* GPIOx_2_,
+				uint16_t GPIO_Pin_2_);
 
 void L298N_update_pwm(L298N_driver* L298_driver, uint8_t pwm_count);
-
 
 void L298N_set_input_configuration(L298N_driver* L298_driver, E_L298N_MODE l298n_mode);
 #endif /* INC_DRIVERS_L298N_DRIVER_H_ */

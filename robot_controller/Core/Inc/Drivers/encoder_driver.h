@@ -18,6 +18,10 @@ typedef struct{
 
 }EncoderInfo;
 
+void init_encoder_info(EncoderInfo* encoder_info, TIM_HandleTypeDef* encoder_timer_);
+
 void update_encoder_info(EncoderInfo* encoder_info);
+
+
 
 #endif /* INC_DRIVERS_ENCODER_DRIVER_H_ */
