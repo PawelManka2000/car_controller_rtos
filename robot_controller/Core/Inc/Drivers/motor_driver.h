@@ -13,11 +13,6 @@
 #include "pid_controller.h"
 #include "L298N_driver.h"
 
-#define MOTOR_Kp			0.06
-#define MOTOR_Ki			3
-#define MOTOR_Kd			0
-#define MOTOR_ANTI_WINDUP	1000
-
 
 
 typedef struct{
@@ -27,26 +22,38 @@ typedef struct{
 	float position;
 	float last_position;
 
+}MotorState;
+
+typedef struct{
+
+	MotorState* motor_state;
 	PIDController* pid_controller;
 	EncoderInfo* encoder_info;
 	TIM_HandleTypeDef* motor_updater_tim;
 	L298N_driver* L298N_driver;
 
-}MotorInfo;
+}MotorStruct;
 
 
-void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param, PIDController *pid_controller_, L298N_driver *L298N_);
+void init_motor(
+		MotorStruct *motor_struct,
+		MotorState *motor_state_,
+		TIM_HandleTypeDef *updater_tim_,
+		EncoderInfo *enc_inf_param_,
+		PIDController *pid_controller_,
+		L298N_driver *L298N_);
 
-void regulate_velocity(MotorInfo *motor);
 
-void set_velocity(MotorInfo *motor, float velocity);
+void regulate_velocity(MotorStruct *motor);
 
-float rotary_displacement(MotorInfo* motor_info);
 
-void update_position(MotorInfo* motor_info);
+void set_velocity(MotorState *motor_state, float velocity);
 
-void update_measured_velocity(MotorInfo* motor_info);
+float rotary_displacement(MotorState *motor_state);
 
-uint8_t saturate_pwm(int pwm_value);
+void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info);
+
+void update_measured_velocity(MotorState* motor_state, float updater_timer_periods);
+
 
 #endif /* INC_DRIVERS_MOTOR_DRIVER_H_ */

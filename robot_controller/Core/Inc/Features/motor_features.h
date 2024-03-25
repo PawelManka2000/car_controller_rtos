@@ -5,8 +5,8 @@
  *      Author: pawel
  */
 
-#ifndef INC_FEATURES_ENGINE_FEATURES_H_
-#define INC_FEATURES_ENGINE_FEATURES_H_
+#ifndef INC_FEATURES_MOTOR_FEATURES_H_
+#define INC_FEATURES_MOTOR_FEATURES_H_
 
 #include <math.h>
 #include "stm32g4xx_hal.h"
@@ -15,6 +15,6 @@
 #define ONE_ROTATION_TICKS 3890
 
 float convert_to_radians(int32_t enc_displacement);
+uint8_t saturate_pwm(int pwm_value);
 
-
-#endif /* INC_FEATURES_ENGINE_FEATURES_H_ */
+#endif /* INC_FEATURES_MOTOR_FEATURES_H_ */

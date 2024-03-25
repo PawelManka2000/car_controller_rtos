@@ -17,3 +17,5 @@ float CountPeriodS(TIM_HandleTypeDef *htim) {
 
     return period_seconds;
 }
+
+

@@ -33,9 +33,10 @@ char message[100];
 
 //EngineInfo motor;
 EncoderInfo encoder_info;
-MotorInfo motor;
+MotorStruct motor;
 PIDController pid_controller;
-L298N_driver L298N_left_back;
+L298N_driver L298N_lb;
+MotorState lb_motor_state;
 
 uint16_t period;
 float updater_timer_periods;
@@ -56,9 +57,9 @@ int main(void)
   MX_TIM8_Init();
 
   init_encoder_info(&encoder_info, &htim4);
-  L298N_init(&L298N_left_back, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+  L298N_init(&L298N_lb, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
-  init_motor(&motor, &htim7, &encoder_info, &pid_controller, &L298N_left_back);
+  init_motor(&motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
 
 
   /* USER CODE BEGIN 2 */
@@ -70,9 +71,9 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 
-
-  L298N_set_input_configuration(&L298N_left_back, FORWARD);
-  set_velocity(&motor, 4);
+  updater_timer_periods = CountPeriodS(motor.motor_updater_tim);
+  L298N_set_input_configuration(&L298N_lb, FORWARD);
+  set_velocity(motor.motor_state, 4);
 
 
   /* USER CODE END 2 */
@@ -106,9 +107,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     if (htim->Instance == (TIM_TypeDef *)motor.motor_updater_tim->Instance) {
 
+    	update_motor_position(motor.motor_state, motor.encoder_info);
 
-    	update_position(&motor);
-    	update_measured_velocity(&motor);
+    	update_measured_velocity(motor.motor_state, updater_timer_periods);
     	regulate_velocity(&motor);
 
     }

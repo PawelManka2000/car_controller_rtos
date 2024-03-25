@@ -1,6 +1,5 @@
 Core/Src/Drivers/motor_driver.o: ../Core/Src/Drivers/motor_driver.c \
- C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h \
- C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/motor_features.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -30,13 +29,13 @@ Core/Src/Drivers/motor_driver.o: ../Core/Src/Drivers/motor_driver.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/timers_feature.h \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h \
  C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h \
- C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h \
- C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/engine_features.h
-C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h:
-C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h:
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/motor_features.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h:
@@ -66,8 +65,9 @@ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_co
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/timers_feature.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h:
 C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h:
-C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/engine_features.h:

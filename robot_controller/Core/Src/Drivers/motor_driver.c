@@ -5,48 +5,46 @@
  *      Author: pawel
  */
 
+#include <motor_features.h>
 #include "motor_driver.h"
 #include "timers_configuration.h"
-#include "engine_features.h"
 
 
-void init_motor(MotorInfo *motor, TIM_HandleTypeDef *updater_tim, EncoderInfo *enc_inf_param, PIDController *pid_controller_, L298N_driver *L298N_)
+void init_motor(
+		MotorStruct *motor_struct,
+		MotorState *motor_state_,
+		TIM_HandleTypeDef *updater_tim_,
+		EncoderInfo *enc_inf_param_,
+		PIDController *pid_controller_,
+		L298N_driver *L298N_)
 {
-	motor->motor_updater_tim = updater_tim;
-	motor->encoder_info = enc_inf_param;
-	motor->measured_velocity = 0;
-	motor->set_velocity = 0;
-	motor->L298N_driver = L298N_;
-	motor->pid_controller = pid_controller_;
+	motor_struct->motor_state = motor_state_;
+	motor_struct->motor_updater_tim = updater_tim_;
+	motor_struct->encoder_info = enc_inf_param_;
+	motor_struct->L298N_driver = L298N_;
+	motor_struct->pid_controller = pid_controller_;
 
 }
 
 
-void regulate_velocity(MotorInfo *motor_info)
+void regulate_velocity(MotorStruct *motor_struct)
 {
-	uint16_t pwm_value = pid_calculate(motor_info->pid_controller, motor_info->set_velocity, motor_info->measured_velocity);
+
+	MotorState* current_motor_state = motor_struct->motor_state;
+	uint16_t pwm_value = pid_calculate(	motor_struct->pid_controller,
+										current_motor_state->set_velocity,
+										current_motor_state->measured_velocity);
 	uint8_t saturated_pwm_value = saturate_pwm(pwm_value);
-	L298N_update_pwm(motor_info->L298N_driver, saturated_pwm_value);
+	L298N_update_pwm(motor_struct->L298N_driver, saturated_pwm_value);
 
 }
 
-uint8_t saturate_pwm(int pwm_value){
 
 
-	if (pwm_value < 0){
-		pwm_value = 0;
-	}else if(pwm_value > 100){
-		pwm_value = 100;
-	}
-	return (uint8_t)pwm_value;
-
-}
-
-void update_position(MotorInfo* motor_info)
+void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info)
 {
 
-	motor_info->last_position = motor_info->position;
-	EncoderInfo* encoder_info = motor_info->encoder_info;
+	motor_state->last_position = motor_state->position;
 	update_encoder_info(encoder_info);
 	int16_t encoder_diff = encoder_info->counter_value - encoder_info->last_counter_value;
 	int16_t position_change = 0;
@@ -75,26 +73,24 @@ void update_position(MotorInfo* motor_info)
 	}
 
 	float position_change_rad = convert_to_radians(position_change);
-	motor_info->position = motor_info->last_position - position_change_rad;
+	motor_state->position = motor_state->last_position - position_change_rad;
 
 }
 
-void set_velocity(MotorInfo *motor, float velocity)
+void set_velocity(MotorState *motor_state, float velocity)
 {
-	motor->set_velocity = velocity;
+	motor_state->set_velocity = velocity;
 }
 
-void update_measured_velocity(MotorInfo* motor_info)
+void update_measured_velocity(MotorState* motor_state, float updater_timer_periods)
 {
-	float rotary_displacement_ = rotary_displacement(motor_info);
-	float updater_timer_periods = CountPeriodS(motor_info->motor_updater_tim);
 
-	motor_info->measured_velocity = (float)rotary_displacement_ /updater_timer_periods;
+	float rotary_displacement_ = rotary_displacement(motor_state);
+	motor_state->measured_velocity = (float)rotary_displacement_ /updater_timer_periods;
 
 }
 
+float rotary_displacement(MotorState *motor_state){
 
-float rotary_displacement(MotorInfo* motor_info){
-
-	return motor_info->position - motor_info->last_position;
+	return motor_state->position - motor_state->last_position;
 }

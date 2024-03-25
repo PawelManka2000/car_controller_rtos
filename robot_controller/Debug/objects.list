@@ -6,7 +6,7 @@
 "./Core/Src/Drivers/encoder_driver.o"
 "./Core/Src/Drivers/motor_driver.o"
 "./Core/Src/Drivers/pid_controller.o"
-"./Core/Src/Features/engine_features.o"
+"./Core/Src/Features/motor_features.o"
 "./Core/Src/Features/timers_features.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32g4xx_hal_msp.o"

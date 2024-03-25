@@ -8,6 +8,11 @@
 #ifndef INC_DRIVERS_PID_CONTROLLER_H_
 #define INC_DRIVERS_PID_CONTROLLER_H_
 
+#define MOTOR_Kp			0.06
+#define MOTOR_Ki			3
+#define MOTOR_Kd			0
+#define MOTOR_ANTI_WINDUP	1000
+
 typedef struct
 {
 	int previous_error;
