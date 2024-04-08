@@ -1,0 +1,2 @@
+../Core/Src/Drivers/encoder_driver.c:10:6:init_encoder_info	16	static
+../Core/Src/Drivers/encoder_driver.c:16:6:update_encoder_info	16	static

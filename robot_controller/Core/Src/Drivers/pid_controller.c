@@ -1,0 +1,43 @@
+
+
+#include "pid_controller.h"
+
+void pid_init(PIDController *pid_data, float kp_init, float ki_init, float kd_init, int anti_windup_limit_init)
+{
+	pid_data->previous_error = 0;
+	pid_data->total_error = 0;
+
+	pid_data->Kp = kp_init;
+	pid_data->Ki = ki_init;
+	pid_data->Kd = kd_init;
+
+	pid_data->anti_windup_limit = anti_windup_limit_init;
+}
+
+void pid_reset(PIDController *pid_data)
+{
+	pid_data->total_error = 0;
+	pid_data->previous_error = 0;
+}
+
+
+int pid_calculate(PIDController *pid_data, float setpoint, float process_variable)
+{
+	float error;
+	float p_term, i_term, d_term;
+
+
+	error = setpoint - process_variable;
+	pid_data->total_error += error;
+
+	p_term = (float)(pid_data->Kp * error);
+	i_term = (float)(pid_data->Ki * pid_data->total_error);
+	d_term = (float)(pid_data->Kd * (error - pid_data->previous_error));
+
+	if(i_term >= pid_data->anti_windup_limit) i_term = pid_data->anti_windup_limit;
+	else if(i_term <= -pid_data->anti_windup_limit) i_term = -pid_data->anti_windup_limit;
+
+	pid_data->previous_error = error;
+
+	return (int)(p_term + i_term + d_term);
+}

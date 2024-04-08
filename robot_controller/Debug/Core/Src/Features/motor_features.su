@@ -1,0 +1,2 @@
+../Core/Src/Features/motor_features.c:10:7:convert_to_radians	16	static
+../Core/Src/Features/motor_features.c:17:9:saturate_pwm	16	static

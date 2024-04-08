@@ -1,0 +1,59 @@
+/*
+ * engine_driver.h
+ *
+ *  Created on: Mar 8, 2024
+ *      Author: pawel
+ */
+
+#ifndef INC_DRIVERS_MOTOR_DRIVER_H_
+#define INC_DRIVERS_MOTOR_DRIVER_H_
+
+#include "encoder_driver.h"
+#include "timers_feature.h"
+#include "pid_controller.h"
+#include "L298N_driver.h"
+
+
+
+typedef struct{
+
+	float measured_velocity;
+	float set_velocity;
+	float position;
+	float last_position;
+
+}MotorState;
+
+typedef struct{
+
+	MotorState* motor_state;
+	PIDController* pid_controller;
+	EncoderInfo* encoder_info;
+	TIM_HandleTypeDef* motor_updater_tim;
+	L298N_driver* L298N_driver;
+
+}MotorStruct;
+
+
+void init_motor(
+		MotorStruct *motor_struct,
+		MotorState *motor_state_,
+		TIM_HandleTypeDef *updater_tim_,
+		EncoderInfo *enc_inf_param_,
+		PIDController *pid_controller_,
+		L298N_driver *L298N_);
+
+
+void regulate_velocity(MotorStruct *motor);
+
+
+void set_velocity(MotorState *motor_state, float velocity);
+
+float rotary_displacement(MotorState *motor_state);
+
+void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info);
+
+void update_measured_velocity(MotorState* motor_state, float updater_timer_periods);
+
+
+#endif /* INC_DRIVERS_MOTOR_DRIVER_H_ */
