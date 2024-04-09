@@ -7,6 +7,7 @@
 C_SRCS += \
 ../Core/Src/Drivers/L298N_driver.c \
 ../Core/Src/Drivers/cmd_listener.c \
+../Core/Src/Drivers/driving_system.c \
 ../Core/Src/Drivers/encoder_driver.c \
 ../Core/Src/Drivers/motor_driver.c \
 ../Core/Src/Drivers/pid_controller.c 
@@ -14,6 +15,7 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/Drivers/L298N_driver.o \
 ./Core/Src/Drivers/cmd_listener.o \
+./Core/Src/Drivers/driving_system.o \
 ./Core/Src/Drivers/encoder_driver.o \
 ./Core/Src/Drivers/motor_driver.o \
 ./Core/Src/Drivers/pid_controller.o 
@@ -21,6 +23,7 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/Drivers/L298N_driver.d \
 ./Core/Src/Drivers/cmd_listener.d \
+./Core/Src/Drivers/driving_system.d \
 ./Core/Src/Drivers/encoder_driver.d \
 ./Core/Src/Drivers/motor_driver.d \
 ./Core/Src/Drivers/pid_controller.d 
@@ -33,7 +36,7 @@ Core/Src/Drivers/%.o Core/Src/Drivers/%.su Core/Src/Drivers/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-Drivers
 
 clean-Core-2f-Src-2f-Drivers:
-	-$(RM) ./Core/Src/Drivers/L298N_driver.cyclo ./Core/Src/Drivers/L298N_driver.d ./Core/Src/Drivers/L298N_driver.o ./Core/Src/Drivers/L298N_driver.su ./Core/Src/Drivers/cmd_listener.cyclo ./Core/Src/Drivers/cmd_listener.d ./Core/Src/Drivers/cmd_listener.o ./Core/Src/Drivers/cmd_listener.su ./Core/Src/Drivers/encoder_driver.cyclo ./Core/Src/Drivers/encoder_driver.d ./Core/Src/Drivers/encoder_driver.o ./Core/Src/Drivers/encoder_driver.su ./Core/Src/Drivers/motor_driver.cyclo ./Core/Src/Drivers/motor_driver.d ./Core/Src/Drivers/motor_driver.o ./Core/Src/Drivers/motor_driver.su ./Core/Src/Drivers/pid_controller.cyclo ./Core/Src/Drivers/pid_controller.d ./Core/Src/Drivers/pid_controller.o ./Core/Src/Drivers/pid_controller.su
+	-$(RM) ./Core/Src/Drivers/L298N_driver.cyclo ./Core/Src/Drivers/L298N_driver.d ./Core/Src/Drivers/L298N_driver.o ./Core/Src/Drivers/L298N_driver.su ./Core/Src/Drivers/cmd_listener.cyclo ./Core/Src/Drivers/cmd_listener.d ./Core/Src/Drivers/cmd_listener.o ./Core/Src/Drivers/cmd_listener.su ./Core/Src/Drivers/driving_system.cyclo ./Core/Src/Drivers/driving_system.d ./Core/Src/Drivers/driving_system.o ./Core/Src/Drivers/driving_system.su ./Core/Src/Drivers/encoder_driver.cyclo ./Core/Src/Drivers/encoder_driver.d ./Core/Src/Drivers/encoder_driver.o ./Core/Src/Drivers/encoder_driver.su ./Core/Src/Drivers/motor_driver.cyclo ./Core/Src/Drivers/motor_driver.d ./Core/Src/Drivers/motor_driver.o ./Core/Src/Drivers/motor_driver.su ./Core/Src/Drivers/pid_controller.cyclo ./Core/Src/Drivers/pid_controller.d ./Core/Src/Drivers/pid_controller.o ./Core/Src/Drivers/pid_controller.su
 
 .PHONY: clean-Core-2f-Src-2f-Drivers
 

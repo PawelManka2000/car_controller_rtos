@@ -10,6 +10,11 @@
 #include "timers_configuration.h"
 
 
+void str_motor_state(MotorState* motor_state, uint8_t* state_buffer){
+
+	sprintf(state_buffer, "id %d, pos %.2f, vel %.2f", motor_state->motor_id, motor_state->last_position, motor_state->measured_velocity);
+}
+
 void init_motor(
 		MotorStruct *motor_struct,
 		MotorState *motor_state_,

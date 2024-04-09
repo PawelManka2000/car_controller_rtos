@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c \
+Core/Src/Drivers/driving_system.o: ../Core/Src/Drivers/driving_system.c \
+ C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/driving_system.h \
  C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h \
  C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
@@ -34,13 +35,8 @@ Core/Src/main.o: ../Core/Src/main.c \
  C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/pid_controller.h \
  C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/L298N_driver.h \
  C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/timers_configuration.h \
- ../Core/Inc/main.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/clock_configuration.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/gpio_configuration.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/uart_configuration.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/driving_system.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h
+ C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/uart_configuration.h
+C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/driving_system.h:
 C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h:
 C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
@@ -76,10 +72,4 @@ C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Features/timers_
 C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/pid_controller.h:
 C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/L298N_driver.h:
 C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/timers_configuration.h:
-../Core/Inc/main.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/clock_configuration.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/gpio_configuration.h:
 C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/uart_configuration.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/driving_system.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h:

@@ -4,6 +4,7 @@
 "./Core/Src/Configuration/uart_configuration.o"
 "./Core/Src/Drivers/L298N_driver.o"
 "./Core/Src/Drivers/cmd_listener.o"
+"./Core/Src/Drivers/driving_system.o"
 "./Core/Src/Drivers/encoder_driver.o"
 "./Core/Src/Drivers/motor_driver.o"
 "./Core/Src/Drivers/pid_controller.o"
