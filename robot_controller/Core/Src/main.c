@@ -38,8 +38,12 @@ PIDController pid_controller;
 L298N_driver L298N_lb;
 MotorState lb_motor_state;
 
+
 uint16_t period;
 float updater_timer_periods;
+uint8_t cmd_data[10];
+
+
 
 int main(void)
 {
@@ -75,9 +79,8 @@ int main(void)
   L298N_set_input_configuration(&L298N_lb, FORWARD);
   set_velocity(motor.motor_state, 4);
 
-
   /* USER CODE END 2 */
-
+  HAL_UART_Receive_IT(&hlpuart1, cmd_data, 4);
 
 
   period = CountPeriodS(&htim7);
@@ -92,6 +95,13 @@ int main(void)
 
 }
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  HAL_UART_Receive_IT(&hlpuart1, cmd_data, 4);
+  uint8_t my_data[] = "my_char";
+  HAL_UART_Transmit(&hlpuart1,my_data, sizeof(my_data),10);// Sending in normal mode
+
+}
 
 
 /**
