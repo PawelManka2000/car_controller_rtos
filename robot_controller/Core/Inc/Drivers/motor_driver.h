@@ -12,7 +12,9 @@
 #include "timers_feature.h"
 #include "pid_controller.h"
 #include "L298N_driver.h"
+#include <stdio.h>
 #include <string.h>
+
 
 #define STATE_BUFFER_LENGTH 40
 
@@ -47,7 +49,7 @@ void init_motor(
 		L298N_driver *L298N_);
 
 
-void str_motor_state(MotorState* motor_state, uint8_t* state_buffer);
+void str_motor_state(MotorState* motor_state, char* state_buffer);
 
 void set_velocity(MotorState *motor_state, float velocity);
 

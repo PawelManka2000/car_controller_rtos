@@ -25,8 +25,8 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 
-	uint8_t* cmd_literall = cmd;
-	uint8_t* send_state_literall = (uint8_t*)"ssss";
+	uint8_t cmd_literall[] = {cmd[0], '\0'};
+	uint8_t* send_state_literall = (uint8_t*)"s";
 
 	if(strcmp(cmd_literall, send_state_literall) == 0){
 		send_state(driving_system);
@@ -34,15 +34,14 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 }
 
+static char state_str[30];
+
 void send_state(DrivingSystem* driving_system){
 
 
+	memset(state_str, '\0', sizeof(state_str));
 	MotorState* curr_motor_state = driving_system->left_motors_lst[0]->motor_state;
-	uint8_t state_str[30];
 	str_motor_state(curr_motor_state, state_str);
-	HAL_UART_Transmit(&hlpuart1, state_str, sizeof(state_str),STATE_SENDING_TIMEOUT);
-//	char state_str[] = "abcd";
-
-	HAL_UART_Transmit(&hlpuart1, state_str, sizeof(state_str),STATE_SENDING_TIMEOUT);
+	HAL_UART_Transmit(&hlpuart1,(uint8_t*) state_str, sizeof(state_str),STATE_SENDING_TIMEOUT);
 
 }

@@ -93,24 +93,15 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1)
   {
-//    	MotorStruct* lb_motor = driving_system.left_motors_lst[0];
-//    	MotorState* curr_motor_state = lb_motor->motor_state;
-//
-//		str_motor_state(curr_motor_state, state_str);
-//    	HAL_UART_Transmit(&hlpuart1, state_str, sizeof(state_str), STATE_SENDING_TIMEOUT);
-    //	HAL_Delay(1000);
   }
 
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-//  HAL_UART_Receive_IT(&hlpuart1, cmd_data, 4);
-//  uint8_t my_data[] = "my_char";
-//  HAL_UART_Transmit(&hlpuart1,my_data, sizeof(my_data),10);// Sending in normal mode
-	HAL_UART_Receive_IT(&hlpuart1, cmd_data, 4);
-	drv_system_if.exe_cmd(&driving_system, cmd_data);
 
+	drv_system_if.exe_cmd(&driving_system, cmd_data);
+	HAL_UART_Receive_IT(&hlpuart1, cmd_data, 4);
 
 }
 

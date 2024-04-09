@@ -13,7 +13,7 @@
 #include "uart_configuration.h"
 
 #define NO_OF_SIDE_MOTORS 2
-#define STATE_SENDING_TIMEOUT 10
+#define STATE_SENDING_TIMEOUT 100
 
 
 
