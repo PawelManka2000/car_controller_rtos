@@ -9,11 +9,22 @@
 #define INC_DRIVERS_DRIVING_SYSTEM_H_
 
 #include <string.h>
+#include <cstdio>
+#include <cstdlib>
 #include "motor_driver.h"
 #include "uart_configuration.h"
 
 #define NO_OF_SIDE_MOTORS 2
 #define STATE_SENDING_TIMEOUT 100
+
+#define SEND_STATE_SYM "s"
+#define DRIVING_STATE_SYM "d"
+#define FORWARD_SYM "f"
+#define BACKWARD_SYM "b"
+#define LEFT_SYM "l"
+#define RIGHT_SYM "r"
+#define STOP_SYM "h"
+
 
 
 
@@ -25,7 +36,6 @@ typedef struct {
 
 typedef struct {
 	void (*exe_cmd) (DrivingSystem*, uint8_t*);
-	void (*send_state)(DrivingSystem* driving_system);
 
 
 }DrivingSystemIface;
@@ -34,8 +44,6 @@ typedef struct {
 void init_driving_system(DrivingSystem* driving_system, MotorStruct* lb_motor, MotorStruct* lf_motor, MotorStruct* rb_motor, MotorStruct* rf_motor);
 
 void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd);
-
-void send_state(DrivingSystem* driving_system);
 
 void default_init_driving_system_if(DrivingSystemIface* drv_system_if);
 

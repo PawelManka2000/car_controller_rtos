@@ -1,6 +1,6 @@
 Core/Src/main.o: ../Core/Src/main.c \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -30,19 +30,19 @@ Core/Src/main.o: ../Core/Src/main.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Features/timers_feature.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/pid_controller.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/L298N_driver.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/timers_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/timers_feature.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h \
  ../Core/Inc/main.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/clock_configuration.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/gpio_configuration.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/uart_configuration.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/driving_system.h \
- C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h:
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/clock_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/gpio_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/uart_configuration.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/driving_system.h \
+ C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h:
@@ -72,14 +72,14 @@ C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Features/timers_feature.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/pid_controller.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/L298N_driver.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/timers_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Features/timers_feature.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h:
 ../Core/Inc/main.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/clock_configuration.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/gpio_configuration.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Configuration/uart_configuration.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/encoder_driver.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/driving_system.h:
-C:/Users/Admin/STM32CubeIDE/robot_ws1/robot_controller/Core/Inc/Drivers/motor_driver.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/clock_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/gpio_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Configuration/uart_configuration.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/encoder_driver.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/driving_system.h:
+C:/Users/pawel/Documents/projects/stm_workspace/ws1/car_controller_rtos/robot_controller/Core/Inc/Drivers/motor_driver.h:
