@@ -12,8 +12,11 @@
 #include "timers_feature.h"
 #include "pid_controller.h"
 #include "L298N_driver.h"
+#include <stdio.h>
+#include <string.h>
 
 
+#define STATE_BUFFER_LENGTH 40
 
 typedef struct{
 
@@ -21,8 +24,10 @@ typedef struct{
 	float set_velocity;
 	float position;
 	float last_position;
+	uint8_t motor_id;
 
 }MotorState;
+
 
 typedef struct{
 
@@ -44,8 +49,7 @@ void init_motor(
 		L298N_driver *L298N_);
 
 
-void regulate_velocity(MotorStruct *motor);
-
+void str_motor_state(MotorState* motor_state, char* state_buffer);
 
 void set_velocity(MotorState *motor_state, float velocity);
 
@@ -54,6 +58,9 @@ float rotary_displacement(MotorState *motor_state);
 void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info);
 
 void update_measured_velocity(MotorState* motor_state, float updater_timer_periods);
+
+
+void regulate_velocity(MotorStruct *motor);
 
 
 #endif /* INC_DRIVERS_MOTOR_DRIVER_H_ */

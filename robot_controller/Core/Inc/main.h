@@ -28,13 +28,6 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
-#include "motor_driver.h"
-#include "timers_configuration.h"
-
-#include "clock_configuration.h"
-#include "gpio_configuration.h"
-#include "uart_configuration.h"
-#include "encoder_driver.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

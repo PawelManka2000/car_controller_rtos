@@ -24,6 +24,9 @@
 #include "gpio_configuration.h"
 #include "uart_configuration.h"
 #include "encoder_driver.h"
+#include "driving_system.h"
+#include "cmd_listener.h"
+
 
 
 float rotate = 0;
@@ -33,13 +36,18 @@ char message[100];
 
 //EngineInfo motor;
 EncoderInfo encoder_info;
-MotorStruct motor;
+MotorStruct lb_motor;
 PIDController pid_controller;
 L298N_driver L298N_lb;
 MotorState lb_motor_state;
+DrivingSystem driving_system;
+DrivingSystemIface drv_system_if;
 
 uint16_t period;
 float updater_timer_periods;
+uint8_t cmd_data[10];
+
+
 
 int main(void)
 {
@@ -59,7 +67,7 @@ int main(void)
   init_encoder_info(&encoder_info, &htim4);
   L298N_init(&L298N_lb, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
-  init_motor(&motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
+  init_motor(&lb_motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
 
 
   /* USER CODE BEGIN 2 */
@@ -71,27 +79,32 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 
-  updater_timer_periods = CountPeriodS(motor.motor_updater_tim);
-  L298N_set_input_configuration(&L298N_lb, FORWARD);
-  set_velocity(motor.motor_state, 4);
 
+  updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
+  L298N_set_input_configuration(&L298N_lb, FORWARD);
+  init_driving_system(&driving_system ,&lb_motor, &lb_motor, &lb_motor, &lb_motor);
+  default_init_driving_system_if(&drv_system_if);
 
   /* USER CODE END 2 */
 
-
-
+  HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
   period = CountPeriodS(&htim7);
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
   {
-
-
   }
 
 }
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+
+	drv_system_if.exe_cmd(&driving_system, cmd_data);
+	HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
+
+}
 
 
 /**
@@ -105,12 +118,12 @@ int main(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 
-    if (htim->Instance == (TIM_TypeDef *)motor.motor_updater_tim->Instance) {
+    if (htim->Instance == (TIM_TypeDef *)lb_motor.motor_updater_tim->Instance) {
 
-    	update_motor_position(motor.motor_state, motor.encoder_info);
+    	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
+    	update_measured_velocity(lb_motor.motor_state, updater_timer_periods);
 
-    	update_measured_velocity(motor.motor_state, updater_timer_periods);
-    	regulate_velocity(&motor);
+    	regulate_velocity(&lb_motor);
 
     }
 
