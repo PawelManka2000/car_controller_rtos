@@ -6,12 +6,11 @@
  */
 
 #include "driving_system.h"
-#include "string.h"
+
 
 static char state_str[20];
 static char states_buffer[80];
 static void add_state_to_states_buffer(MotorState* motor_state);
-static void parse_payload(uint8_t* cmd, uint8_t* payload, uint8_t length);
 
 
 void init_driving_system(DrivingSystem* driving_system, MotorStruct* lb_motor, MotorStruct* lf_motor, MotorStruct* rb_motor, MotorStruct* rf_motor)
@@ -32,43 +31,44 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 
-	uint8_t cmd_code[] = {cmd[0], cmd[1], '\0'};
-	uint8_t cmd_code_0[] = {cmd[0], '\0'};
-	uint8_t cmd_code_1[] = {cmd[1], '\0'};
+	uint8_t cmd_code[] = "00";
+	uint8_t payload[] = "0000000";
 
-	uint8_t cmd_length = sizeof(cmd)/sizeof(cmd[0]);
-	uint8_t payload[cmd_length];
-	parse_payload(cmd, payload, cmd_length);
+	parse_cmd_code(cmd, cmd_code);
+	parse_payload(cmd, payload);
 
 
-	uint8_t* send_state_literall = (uint8_t*)STATE_CMD_LIT;
-	uint8_t* forward_state_literall = (uint8_t*)FORWARD_CMD_LIT;
+//	uint8_t* send_state_literall = (uint8_t*)STATE_CMD_LIT;
+//	uint8_t* forward_state_literall = (uint8_t*)FORWARD_CMD_LIT;
 
 
-	if(strcmp(cmd_code_0, send_state_literall) == 0)
+	if(cmd_code[0] == 1)
 	{
 		send_state(driving_system);
-	}
-	else if(strcmp(cmd_code_0, (uint8_t*)CONTROL_MODE_LIT) == 0)
+	}else if(cmd_code[0] == 2)
 	{
 
-	    float vel;
+	    float vel = 0;
 	    sscanf(payload, "%f", &vel);
 
-		if(strcmp(cmd_code_1, forward_state_literall) == 0)
+		if(cmd_code[1] == 1)
 		{
-			drive_forward(driving_system, vel);
+			send_state(driving_system);
+//			vel = velocity_from_payload(payload);
+//			drive_forward(driving_system, vel);
 
-		}else if(strcmp(cmd_code_1, (uint8_t*)BACKWARD_CMD_LIT) == 0)
+		}else if(cmd_code[1] == 2)
 		{
 //			drive_backward(driving_system, vel);
+			send_drv_err("Backward not implemented");
 		}
-	}else if(strcmp(cmd_code_0, (uint8_t*)PWM_MODE_LIT) == 0){
 
-		uint8_t msg[] = "PWM Mode uunimplemented";
-		send_drv_err(msg);
+	}else if(cmd_code[0] == 3){
 
-	}else{
+		send_drv_err("PWM Mode unimplemented");
+
+	}
+	else{
 		uint8_t msg[] = "Undefined First Cmd Literall";
 		send_drv_err(msg);
 	}
@@ -76,7 +76,7 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 
 
-void send_drv_err(uint8_t* msg){
+void send_drv_err(char* msg){
 
 	char err_buffer[100];
 	memset(err_buffer, '\0', sizeof(err_buffer));
@@ -84,7 +84,6 @@ void send_drv_err(uint8_t* msg){
 	strcat(err_buffer, msg);
 	strcat(err_buffer, "\n\r");
 	HAL_UART_Transmit(&hlpuart1,(uint8_t*) err_buffer, strlen(err_buffer),STATE_SENDING_TIMEOUT);
-
 
 }
 
@@ -97,12 +96,7 @@ static void add_state_to_states_buffer(MotorState* motor_state){
 
 }
 
-static void parse_payload(uint8_t* cmd, uint8_t* payload, uint8_t length){
 
-	memset(payload, '\0', sizeof(payload));
-	strncpy(payload, cmd + 1, sizeof(cmd)/sizeof(cmd[0]));
-	payload[length] = '\0';
-}
 
 
 void drive_forward(DrivingSystem* driving_system, float velocity){

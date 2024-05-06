@@ -11,6 +11,7 @@
 #include <string.h>
 #include "motor_driver.h"
 #include "uart_configuration.h"
+#include "parser_features.h"
 
 #define NO_OF_SIDE_MOTORS 2
 #define STATE_SENDING_TIMEOUT 100
@@ -46,7 +47,7 @@ void default_init_driving_system_if(DrivingSystemIface *drv_system_if);
 
 void drive_forward(DrivingSystem* driving_system, float velocity);
 
-void send_drv_err(uint8_t* msg);
+void send_drv_err(char* msg);
 
 
 

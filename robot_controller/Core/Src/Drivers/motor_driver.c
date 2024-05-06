@@ -12,7 +12,7 @@
 
 void str_motor_state(MotorState* motor_state, char* state_buffer){
 
-	sprintf(state_buffer, "%d,%.2f,%.2f\n\r", motor_state->motor_id, motor_state->last_position, motor_state->measured_velocity);
+	sprintf(state_buffer, "%d,%.2f,%.2f\n\r", motor_state->motor_id, motor_state->set_velocity, motor_state->measured_velocity);
 }
 
 void init_motor(
