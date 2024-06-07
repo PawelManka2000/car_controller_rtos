@@ -31,7 +31,7 @@ typedef struct {
 } DrivingSystem;
 
 typedef struct {
-	void (*exe_cmd)(DrivingSystem*, uint8_t*);
+	void (*exe_cmd)(DrivingSystem*, char*);
 	void (*send_state)(DrivingSystem *driving_system);
 
 } DrivingSystemIface;
@@ -39,7 +39,7 @@ typedef struct {
 void init_driving_system(DrivingSystem *driving_system, MotorStruct *lb_motor,
 		MotorStruct *lf_motor, MotorStruct *rb_motor, MotorStruct *rf_motor);
 
-void execute_cmd(DrivingSystem *driving_system, uint8_t *cmd);
+void execute_cmd(DrivingSystem *driving_system, char *cmd);
 
 void send_state(DrivingSystem *driving_system);
 

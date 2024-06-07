@@ -17,10 +17,10 @@ float convert_to_radians(int32_t enc_position){
 uint8_t saturate_pwm(int pwm_value){
 
 
-	if (pwm_value < 0){
-		pwm_value = 0;
-	}else if(pwm_value > 100){
-		pwm_value = 100;
+	if (pwm_value < PWM_MIN_VALUE){
+		pwm_value = (uint8_t)PWM_MIN_VALUE;
+	}else if(pwm_value > PWM_MAX_VALUE){
+		pwm_value = (uint8_t)PWM_MAX_VALUE;
 	}
 	return (uint8_t)pwm_value;
 

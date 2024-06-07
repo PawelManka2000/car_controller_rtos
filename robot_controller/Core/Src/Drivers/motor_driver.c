@@ -39,8 +39,7 @@ void regulate_velocity(MotorStruct *motor_struct)
 	uint16_t pwm_value = pid_calculate(	motor_struct->pid_controller,
 										current_motor_state->set_velocity,
 										current_motor_state->measured_velocity);
-	uint8_t saturated_pwm_value = saturate_pwm(pwm_value);
-	L298N_update_pwm(motor_struct->L298N_driver, saturated_pwm_value);
+	L298N_update_pwm(motor_struct->L298N_driver, pwm_value);
 
 }
 

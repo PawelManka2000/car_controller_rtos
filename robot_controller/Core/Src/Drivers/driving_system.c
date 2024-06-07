@@ -28,11 +28,11 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 	drv_system_if->send_state = send_state;
 }
 
-void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
+void execute_cmd(DrivingSystem* driving_system, char* cmd){
 
 
-	uint8_t cmd_code[] = "00";
-	uint8_t payload[] = "0000000";
+	char cmd_code[] = "00";
+	char payload[] = "0000000";
 
 	parse_cmd_code(cmd, cmd_code);
 	parse_payload(cmd, payload);
@@ -47,21 +47,27 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 		send_state(driving_system);
 	}else if(cmd_code[0] == 2)
 	{
-
-	    float vel = 0;
-	    sscanf(payload, "%f", &vel);
-
-		if(cmd_code[1] == 1)
+		if(cmd_code[1] == 0){
+			drive_forward(driving_system, 0);
+		}
+		else if(cmd_code[1] == 1)
 		{
 			send_state(driving_system);
-//			vel = velocity_from_payload(payload);
-//			drive_forward(driving_system, vel);
+			float vel = velocity_from_payload(payload);
+			drive_forward(driving_system, vel);
 
 		}else if(cmd_code[1] == 2)
 		{
 //			drive_backward(driving_system, vel);
 			send_drv_err("Backward not implemented");
+		}else if(cmd_code[1] == 3){
+//			drive_left(driving_system, vel);
+
 		}
+		else{
+			send_drv_err("Undefined second literall in vel mode");
+		}
+
 
 	}else if(cmd_code[0] == 3){
 
@@ -105,7 +111,7 @@ void drive_forward(DrivingSystem* driving_system, float velocity){
 
 		set_velocity(driving_system->left_motors_lst[i]->motor_state, velocity);
 		set_velocity(driving_system->right_motors_lst[i]->motor_state, velocity);
-		add_state_to_states_buffer(driving_system->right_motors_lst[i]->motor_state);
+//		add_state_to_states_buffer(driving_system->right_motors_lst[i]->motor_state);
 	}
 
 }

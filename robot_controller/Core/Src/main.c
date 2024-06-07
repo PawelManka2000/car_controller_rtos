@@ -89,6 +89,7 @@ int main(void)
 
   HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
   period = CountPeriodS(&htim7);
+  set_velocity(&lb_motor_state, 4.2);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
@@ -120,9 +121,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     if (htim->Instance == (TIM_TypeDef *)lb_motor.motor_updater_tim->Instance) {
 
+
     	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
     	update_measured_velocity(lb_motor.motor_state, updater_timer_periods);
-
     	regulate_velocity(&lb_motor);
 
     }

@@ -12,7 +12,7 @@
 
 
 
-void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code){
+void parse_cmd_code(char* cmd, char* cmd_code){
 
 	if (cmd[0] >= '0' && cmd[0] <= '9') {
 		cmd_code[0] = cmd[0] - '0';
@@ -29,7 +29,7 @@ void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code){
 
 }
 
-void parse_payload(char* cmd, uint8_t* payload) {
+void parse_payload(char* cmd, char* payload) {
 
     uint8_t cmd_index = 2;
     int i = 0;
@@ -57,6 +57,14 @@ void send_parsing_err(char* msg){
 	strcat(err_buffer, "\n\r");
 	HAL_UART_Transmit(&hlpuart1,(uint8_t*) err_buffer, strlen(err_buffer),100);
 
+}
+
+
+float velocity_from_payload(char* payload){
+
+    float vel = 0;
+    sscanf(payload, "%f", &vel);
+    return vel;
 }
 
 #endif /* SRC_FEATURES_PARSER_FEATURES_C_ */

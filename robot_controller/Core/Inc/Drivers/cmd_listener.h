@@ -10,7 +10,7 @@
 
 #define MAX_CMD_LENGTH 20
 #define CMD_PAYLOAD_LENGTH 8
-#define CMD_CODE_LENGTH 1
+#define CMD_CODE_LENGTH 2
 //
 //typedef struct{
 //

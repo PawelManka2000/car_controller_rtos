@@ -14,11 +14,11 @@
 #define PAYLOAD_LENGHT 8
 #define CMD_END_CHAR 'f'
 
-void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code);
+void parse_cmd_code(char* cmd, char* cmd_code);
 
-void parse_payload(char* cmd, uint8_t* payload);
+void parse_payload(char* cmd, char* payload);
 
-void velocity_from_payload();
+float velocity_from_payload(char* payload);
 
 void pwm_from_payload();
 
