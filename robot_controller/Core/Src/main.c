@@ -43,7 +43,6 @@ MotorState lb_motor_state;
 DrivingSystem driving_system;
 DrivingSystemIface drv_system_if;
 
-uint16_t period;
 float updater_timer_periods;
 uint8_t cmd_data[10];
 
@@ -88,7 +87,7 @@ int main(void)
   /* USER CODE END 2 */
 
   HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
-  period = CountPeriodS(&htim7);
+  set_velocity(&lb_motor_state, 4.2);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
@@ -121,7 +120,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == (TIM_TypeDef *)lb_motor.motor_updater_tim->Instance) {
 
     	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
-    	update_measured_velocity(lb_motor.motor_state, updater_timer_periods);
+    	update_measured_velocity(&lb_motor);
 
     	regulate_velocity(&lb_motor);
 

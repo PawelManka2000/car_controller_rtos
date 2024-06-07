@@ -25,6 +25,7 @@ void init_motor(
 {
 	motor_struct->motor_state = motor_state_;
 	motor_struct->motor_updater_tim = updater_tim_;
+	motor_struct->updater_timer_periods = CountPeriodS(updater_tim_);
 	motor_struct->encoder_info = enc_inf_param_;
 	motor_struct->L298N_driver = L298N_;
 	motor_struct->pid_controller = pid_controller_;
@@ -87,11 +88,11 @@ void set_velocity(MotorState *motor_state, float velocity)
 	motor_state->set_velocity = velocity;
 }
 
-void update_measured_velocity(MotorState* motor_state, float updater_timer_periods)
+void update_measured_velocity(MotorStruct* motor_struct)
 {
-
-	float rotary_displacement_ = rotary_displacement(motor_state);
-	motor_state->measured_velocity = (float)rotary_displacement_ /updater_timer_periods;
+	MotorState *curr_motor_state = motor_struct->motor_state;
+	float rotary_displacement_ = rotary_displacement(curr_motor_state);
+	curr_motor_state->measured_velocity = (float)rotary_displacement_ / motor_struct->updater_timer_periods;
 
 }
 

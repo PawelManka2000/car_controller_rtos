@@ -35,6 +35,7 @@ typedef struct{
 	PIDController* pid_controller;
 	EncoderInfo* encoder_info;
 	TIM_HandleTypeDef* motor_updater_tim;
+	float updater_timer_periods;
 	L298N_driver* L298N_driver;
 
 }MotorStruct;
@@ -57,7 +58,7 @@ float rotary_displacement(MotorState *motor_state);
 
 void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info);
 
-void update_measured_velocity(MotorState* motor_state, float updater_timer_periods);
+void update_measured_velocity(MotorStruct* motor_struct);
 
 
 void regulate_velocity(MotorStruct *motor);

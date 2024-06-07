@@ -12,6 +12,8 @@
 #include "stm32g4xx_hal.h"
 
 
+#define PWM_MIN_VALUE 0
+#define PWM_MAX_VALUE 98
 #define ONE_ROTATION_TICKS 3890
 
 float convert_to_radians(int32_t enc_displacement);

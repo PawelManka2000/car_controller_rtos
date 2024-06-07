@@ -1,2 +1,2 @@
-../Core/Src/Features/motor_features.c:10:7:convert_to_radians	1
-../Core/Src/Features/motor_features.c:17:9:saturate_pwm	3
+../Core/Src/Features/motor_features.c:12:7:convert_to_radians	1
+../Core/Src/Features/motor_features.c:19:9:saturate_pwm	3
