@@ -46,7 +46,9 @@ DrivingSystemIface drv_system_if;
 float updater_timer_periods;
 uint8_t cmd_data[10];
 
-
+uint8_t pwm_output;
+uint64_t tick;
+void generate_stair_signal(void);
 
 int main(void)
 {
@@ -68,6 +70,8 @@ int main(void)
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
   init_motor(&lb_motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
 
+  pwm_output = 0;
+  tick = 0;
 
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim7);
@@ -87,11 +91,11 @@ int main(void)
   /* USER CODE END 2 */
 
   HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
-  set_velocity(&lb_motor_state, 4.2);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
   {
+//    	generate_stair_signal();
   }
 
 }
@@ -102,6 +106,23 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 	drv_system_if.exe_cmd(&driving_system, cmd_data);
 	HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
+
+}
+
+void generate_stair_signal(void){
+
+	if(tick == 100){
+		pwm_output +=20;
+		tick = 0;
+		if (pwm_output >= 90){
+			pwm_output = 0;
+		}
+	}
+
+//	char my_msg[100];
+//	sprintf(my_msg, "%d \n\r", pwm_output);
+//	HAL_UART_Transmit(&hlpuart1, my_msg, strlen(my_msg),10);
+
 
 }
 
@@ -121,9 +142,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
     	update_measured_velocity(&lb_motor);
-
     	regulate_velocity(&lb_motor);
-
+//    	L298N_update_pwm(lb_motor.L298N_driver, pwm_output);
+//    	tick += 1;
     }
 
 

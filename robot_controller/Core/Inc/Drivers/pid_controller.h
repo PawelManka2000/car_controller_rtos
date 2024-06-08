@@ -10,9 +10,9 @@
 
 #include "stm32g4xx_hal.h"
 
-#define MOTOR_Kp			0.3
-#define MOTOR_Ki			4.4
-#define MOTOR_Kd			0.5
+#define MOTOR_Kp			0.1
+#define MOTOR_Ki			1.5
+#define MOTOR_Kd			1
 #define MOTOR_ANTI_WINDUP	95
 
 typedef struct
