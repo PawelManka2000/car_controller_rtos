@@ -47,8 +47,11 @@ float updater_timer_periods;
 uint8_t cmd_data[10];
 
 uint8_t pwm_output;
+uint8_t velo;
 uint64_t tick;
 void generate_stair_signal(void);
+void generate_random_signal_velo(void);
+
 
 int main(void)
 {
@@ -96,6 +99,7 @@ int main(void)
     while (1)
   {
 //    	generate_stair_signal();
+    	generate_random_signal_velo();
   }
 
 }
@@ -109,7 +113,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 }
 
-void generate_stair_signal(void){
+void generate_stair_signal_pwm(void){
 
 	if(tick == 100){
 		pwm_output +=20;
@@ -118,13 +122,26 @@ void generate_stair_signal(void){
 			pwm_output = 0;
 		}
 	}
+}
+
+void generate_random_signal_velo(void){
+
+	if(tick == 100){
+
+		velo +=  2;
+		tick = 0;
+		if (velo >= 10){
+			velo = 0;
+		}
+	}
+}
 
 //	char my_msg[100];
 //	sprintf(my_msg, "%d \n\r", pwm_output);
 //	HAL_UART_Transmit(&hlpuart1, my_msg, strlen(my_msg),10);
 
 
-}
+
 
 
 /**
@@ -142,9 +159,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
     	update_measured_velocity(&lb_motor);
+    	set_velocity(&lb_motor_state, velo);
+
     	regulate_velocity(&lb_motor);
+    	tick += 1;
 //    	L298N_update_pwm(lb_motor.L298N_driver, pwm_output);
-//    	tick += 1;
+
     }
 
 

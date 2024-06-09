@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (12.3.rel1)
+# Toolchain: GNU Tools for STM32 (11.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -66,8 +66,8 @@ all: main-build
 main-build: robot_controller.elf secondary-outputs
 
 # Tool invocations
-robot_controller.elf robot_controller.map: $(OBJS) $(USER_OBJS) C:\Users\Admin\STM32CubeIDE\robot_new_ws\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "robot_controller.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Admin\STM32CubeIDE\robot_new_ws\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot_controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+robot_controller.elf robot_controller.map: $(OBJS) $(USER_OBJS) C:\Users\pawel\Documents\projects\stm_workspace\ws1\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "robot_controller.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\pawel\Documents\projects\stm_workspace\ws1\car_controller_rtos\robot_controller\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="robot_controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
