@@ -75,6 +75,7 @@ int main(void)
 
   pwm_output = 0;
   tick = 0;
+  velo = 0;
 
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim7);
@@ -98,6 +99,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1)
   {
+    	generate_stair_signal_pwm();
 //    	generate_stair_signal();
     	generate_random_signal_velo();
   }
