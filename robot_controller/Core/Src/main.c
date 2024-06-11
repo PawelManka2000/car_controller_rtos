@@ -99,7 +99,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1)
   {
-    	generate_stair_signal_pwm();
+//    	generate_stair_signal_pwm();
 //    	generate_stair_signal();
     	generate_random_signal_velo();
   }
@@ -133,7 +133,7 @@ void generate_random_signal_velo(void){
 		velo +=  2;
 		tick = 0;
 		if (velo >= 10){
-			velo = 0;
+			velo = 3;
 		}
 	}
 }

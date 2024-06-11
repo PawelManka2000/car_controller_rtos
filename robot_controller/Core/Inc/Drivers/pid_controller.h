@@ -10,8 +10,8 @@
 
 #include "stm32g4xx_hal.h"
 
-#define MOTOR_Kp			0.018
-#define MOTOR_Ki			0.728
+#define MOTOR_Kp			0.01
+#define MOTOR_Ki			0.2
 #define MOTOR_Kd			0
 #define MOTOR_ANTI_WINDUP	95
 
