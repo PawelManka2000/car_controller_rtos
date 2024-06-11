@@ -60,8 +60,10 @@ void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info);
 
 void update_measured_velocity(MotorStruct* motor_struct);
 
-
 void regulate_velocity(MotorStruct *motor);
+
+
+
 
 
 #endif /* INC_DRIVERS_MOTOR_DRIVER_H_ */

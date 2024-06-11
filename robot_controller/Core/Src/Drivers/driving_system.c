@@ -31,10 +31,17 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 
 void drive(DrivingSystem* driving_system){
 
-	if(driving_system->driving_mode_flag == CTRL_VELO){
+	if(driving_system->driving_mode_flag == DV_FLAG_CTRL_VELO){
 
+		for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
+
+			regulate_velocity(driving_system->left_motors_lst[i]);
+			regulate_velocity(driving_system->right_motors_lst[i]);
+		}
+	}else if(driving_system->driving_mode_flag == DV_FLAG_PWM){
+
+//		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver, )
 	}
-
 }
 
 
@@ -108,11 +115,10 @@ static void add_state_to_states_buffer(MotorState* motor_state){
 
 void drive_forward(DrivingSystem* driving_system, float velocity){
 
-	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
-
+	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i)
+	{
 		set_velocity(driving_system->left_motors_lst[i]->motor_state, velocity);
 		set_velocity(driving_system->right_motors_lst[i]->motor_state, velocity);
-		add_state_to_states_buffer(driving_system->right_motors_lst[i]->motor_state);
 	}
 
 }

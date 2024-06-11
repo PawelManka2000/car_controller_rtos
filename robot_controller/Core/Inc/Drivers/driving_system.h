@@ -39,8 +39,8 @@ enum EDvMode{
 
 enum EDvModeFlag{
 
-	CTRL_VELO = 0,
-	PWM = 1,
+	DV_FLAG_CTRL_VELO = 0,
+	DV_FLAG_PWM = 1,
 };
 
 

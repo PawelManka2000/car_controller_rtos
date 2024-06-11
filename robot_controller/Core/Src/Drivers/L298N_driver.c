@@ -17,7 +17,7 @@ void L298N_init(L298N_driver* L298N_driver,
 				GPIO_TypeDef* GPIOx_2_,
 				uint16_t GPIO_Pin_2_)
 {
-	L298N_driver->current_PWM = 0;
+	L298N_driver->PWM_count = 0;
 	L298N_driver->pwm_timer = pwm_timer_;
 	L298N_driver->pwm_channel=pwm_channel_;
 	L298N_driver->GPIOx_1 =GPIOx_1_;
@@ -30,8 +30,8 @@ void L298N_init(L298N_driver* L298N_driver,
 
 void L298N_update_pwm(L298N_driver* L298_driver, uint8_t new_pwm_count)
 {
-	L298_driver->current_PWM = new_pwm_count;
-	__HAL_TIM_SetCompare(L298_driver->pwm_timer, L298_driver->pwm_channel, L298_driver->current_PWM);
+	L298_driver->PWM_count = new_pwm_count;
+	__HAL_TIM_SetCompare(L298_driver->pwm_timer, L298_driver->pwm_channel, L298_driver->PWM_count);
 
 }
 

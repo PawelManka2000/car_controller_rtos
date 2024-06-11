@@ -25,7 +25,7 @@ typedef struct{
 
 	uint32_t pwm_channel;
 	TIM_HandleTypeDef* pwm_timer;
-	uint8_t current_PWM;
+	uint8_t PWM_count;
 
 	GPIO_TypeDef *GPIOx_1;
 	uint16_t GPIO_Pin_1;
