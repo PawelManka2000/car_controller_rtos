@@ -28,42 +28,49 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 	drv_system_if->send_state = send_state;
 }
 
+
+void drive(DrivingSystem* driving_system){
+
+	if(driving_system->driving_mode_flag == CTRL_VELO){
+
+	}
+
+}
+
+
 void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 
 	uint8_t cmd_code[] = "00";
-	uint8_t payload[] = "0000000";
+	uint8_t payload[] = "000000";
 
 	parse_cmd_code(cmd, cmd_code);
 	parse_payload(cmd, payload);
 
 
-//	uint8_t* send_state_literall = (uint8_t*)STATE_CMD_LIT;
-//	uint8_t* forward_state_literall = (uint8_t*)FORWARD_CMD_LIT;
-
-
-	if(cmd_code[0] == 1)
+	if(cmd_code[CMD_ID_POS] == 1)
 	{
 		send_state(driving_system);
-	}else if(cmd_code[0] == 2)
+
+	}else if(cmd_code[CMD_ID_POS] == CMD_ID_CTRL_VELO_REQ)
 	{
 
 	    float vel = 0;
 	    sscanf(payload, "%f", &vel);
 
-		if(cmd_code[1] == 1)
+		if(cmd_code[DV_MODE_POS] == 1)
 		{
 			send_state(driving_system);
 //			vel = velocity_from_payload(payload);
 //			drive_forward(driving_system, vel);
 
-		}else if(cmd_code[1] == 2)
+		}else if(cmd_code[DV_MODE_POS] == 2)
 		{
 //			drive_backward(driving_system, vel);
 			send_drv_err("Backward not implemented");
 		}
 
-	}else if(cmd_code[0] == 3){
+	}else if(cmd_code[CMD_ID_POS] == 3){
 
 		send_drv_err("PWM Mode unimplemented");
 

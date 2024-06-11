@@ -25,8 +25,7 @@
 #include "uart_configuration.h"
 #include "encoder_driver.h"
 #include "driving_system.h"
-#include "cmd_listener.h"
-
+#include "parser_features.h"
 
 
 float rotate = 0;
@@ -109,7 +108,6 @@ int main(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 
-
 	drv_system_if.exe_cmd(&driving_system, cmd_data);
 	HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
 
@@ -129,7 +127,6 @@ void generate_stair_signal_pwm(void){
 void generate_random_signal_velo(void){
 
 	if(tick == 100){
-
 		velo +=  2;
 		tick = 0;
 		if (velo >= 10){
@@ -137,13 +134,6 @@ void generate_random_signal_velo(void){
 		}
 	}
 }
-
-//	char my_msg[100];
-//	sprintf(my_msg, "%d \n\r", pwm_output);
-//	HAL_UART_Transmit(&hlpuart1, my_msg, strlen(my_msg),10);
-
-
-
 
 
 /**

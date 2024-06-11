@@ -13,20 +13,41 @@
 #include "uart_configuration.h"
 #include "parser_features.h"
 
+#define CMD_ID_POS 0
+#define DV_MODE_POS 1
 #define NO_OF_SIDE_MOTORS 2
 #define STATE_SENDING_TIMEOUT 100
 #define DRIVING_ERR "ERR_DRV "
 
-#define PWM_MODE_LIT "p"
-#define CONTROL_MODE_LIT "c"
+// CMD_NAME
+enum ECmdId{
 
-#define FORWARD_CMD_LIT "f"
-#define BACKWARD_CMD_LIT "b"
-#define STATE_CMD_LIT "s"
+	CMD_ID_UNKNOWN = 0,
+	CMD_ID_STATE_REQ = 1,
+	CMD_ID_CTRL_VELO_REQ = 2,
+	CMD_ID_PWM_DRIVING_REQ = 3,
+};
+
+enum EDvMode{
+
+	DV_MODE_STOP = 0,
+	DV_MODE_FORWARD = 1,
+	DV_MODE_BACKWARD = 2,
+	DV_MODE_LEFT = 3,
+	DV_MODE_RIGHT = 4,
+};
+
+enum EDvModeFlag{
+
+	CTRL_VELO = 0,
+	PWM = 1,
+};
+
 
 typedef struct {
 	MotorStruct *left_motors_lst[NO_OF_SIDE_MOTORS];
 	MotorStruct *right_motors_lst[NO_OF_SIDE_MOTORS];
+	uint8_t driving_mode_flag;
 
 } DrivingSystem;
 

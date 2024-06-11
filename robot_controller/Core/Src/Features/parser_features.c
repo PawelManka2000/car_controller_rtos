@@ -11,7 +11,6 @@
 #include "parser_features.h"
 
 
-
 void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code){
 
 	if (cmd[0] >= '0' && cmd[0] <= '9') {
@@ -36,7 +35,7 @@ void parse_payload(char* cmd, uint8_t* payload) {
 
     while (cmd[cmd_index] != CMD_END_CHAR) {
 
-    	if(i == PAYLOAD_LENGHT-1){
+    	if(i == CMD_PAYLOAD_LENGTH-1){
     		send_parsing_err(" cmd end char not received");
     		break;
     	}

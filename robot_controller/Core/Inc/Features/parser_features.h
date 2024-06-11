@@ -11,7 +11,8 @@
 #include "uart_configuration.h"
 
 #define PARSING_ERR "ERR_PARSE "
-#define PAYLOAD_LENGHT 8
+#define CMD_PAYLOAD_LENGTH 6
+#define CMD_CODE_LENGTH 2
 #define CMD_END_CHAR 'f'
 
 void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code);
