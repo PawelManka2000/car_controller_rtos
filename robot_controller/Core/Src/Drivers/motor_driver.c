@@ -41,7 +41,7 @@ void regulate_velocity(MotorStruct *motor_struct)
 										current_motor_state->set_velocity,
 										current_motor_state->measured_velocity);
 	uint8_t saturated_pwm_value = saturate_pwm(pwm_value);
-	L298N_update_pwm(motor_struct->L298N_driver, saturated_pwm_value);
+	L298N_set_pwm_count(motor_struct->L298N_driver, saturated_pwm_value);
 
 }
 
@@ -83,7 +83,7 @@ void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info)
 
 }
 
-void set_velocity(MotorState *motor_state, float velocity)
+void motor_state_set_velocity(MotorState *motor_state, float velocity)
 {
 	motor_state->set_velocity = velocity;
 }

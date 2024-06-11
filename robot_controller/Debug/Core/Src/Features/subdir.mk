@@ -5,16 +5,19 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/Features/driving_modes.c \
 ../Core/Src/Features/motor_features.c \
 ../Core/Src/Features/parser_features.c \
 ../Core/Src/Features/timers_features.c 
 
 OBJS += \
+./Core/Src/Features/driving_modes.o \
 ./Core/Src/Features/motor_features.o \
 ./Core/Src/Features/parser_features.o \
 ./Core/Src/Features/timers_features.o 
 
 C_DEPS += \
+./Core/Src/Features/driving_modes.d \
 ./Core/Src/Features/motor_features.d \
 ./Core/Src/Features/parser_features.d \
 ./Core/Src/Features/timers_features.d 
@@ -27,7 +30,7 @@ Core/Src/Features/%.o Core/Src/Features/%.su Core/Src/Features/%.cyclo: ../Core/
 clean: clean-Core-2f-Src-2f-Features
 
 clean-Core-2f-Src-2f-Features:
-	-$(RM) ./Core/Src/Features/motor_features.cyclo ./Core/Src/Features/motor_features.d ./Core/Src/Features/motor_features.o ./Core/Src/Features/motor_features.su ./Core/Src/Features/parser_features.cyclo ./Core/Src/Features/parser_features.d ./Core/Src/Features/parser_features.o ./Core/Src/Features/parser_features.su ./Core/Src/Features/timers_features.cyclo ./Core/Src/Features/timers_features.d ./Core/Src/Features/timers_features.o ./Core/Src/Features/timers_features.su
+	-$(RM) ./Core/Src/Features/driving_modes.cyclo ./Core/Src/Features/driving_modes.d ./Core/Src/Features/driving_modes.o ./Core/Src/Features/driving_modes.su ./Core/Src/Features/motor_features.cyclo ./Core/Src/Features/motor_features.d ./Core/Src/Features/motor_features.o ./Core/Src/Features/motor_features.su ./Core/Src/Features/parser_features.cyclo ./Core/Src/Features/parser_features.d ./Core/Src/Features/parser_features.o ./Core/Src/Features/parser_features.su ./Core/Src/Features/timers_features.cyclo ./Core/Src/Features/timers_features.d ./Core/Src/Features/timers_features.o ./Core/Src/Features/timers_features.su
 
 .PHONY: clean-Core-2f-Src-2f-Features
 

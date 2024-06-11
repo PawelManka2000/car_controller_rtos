@@ -27,29 +27,32 @@ void L298N_init(L298N_driver* L298N_driver,
 
 }
 
+void L298N_set_pwm_count(L298N_driver* L298_driver, uint8_t new_pwm_count){
 
-void L298N_update_pwm(L298N_driver* L298_driver, uint8_t new_pwm_count)
-{
 	L298_driver->PWM_count = new_pwm_count;
+}
+
+void L298N_update_pwm(L298N_driver* L298_driver)
+{
 	__HAL_TIM_SetCompare(L298_driver->pwm_timer, L298_driver->pwm_channel, L298_driver->PWM_count);
 
 }
 
 
-void L298N_set_input_configuration(L298N_driver* L298_driver, E_L298N_MODE l298n_mode)
+void L298N_set_input_configuration(L298N_driver* L298_driver, EL298N_MODE l298n_mode)
 {
 
-	if(l298n_mode == BACKWARD)
+	if(l298n_mode == L298N_MODE_BACKWARD)
 	{
 	  HAL_GPIO_WritePin(L298_driver->GPIOx_1, L298_driver->GPIO_Pin_1, GPIO_PIN_SET);
 	  HAL_GPIO_WritePin(L298_driver->GPIOx_2, L298_driver->GPIO_Pin_2, GPIO_PIN_RESET);
 
-	}else if(l298n_mode == FORWARD)
+	}else if(l298n_mode == L298N_MODE_FORWARD)
 	{
 	  HAL_GPIO_WritePin(L298_driver->GPIOx_1, L298_driver->GPIO_Pin_1, GPIO_PIN_RESET);
 	  HAL_GPIO_WritePin(L298_driver->GPIOx_2, L298_driver->GPIO_Pin_2, GPIO_PIN_SET);
 	}
-	else if(l298n_mode == STOP)
+	else if(l298n_mode == L298N_MODE_STOP)
 	{
 	  HAL_GPIO_WritePin(L298_driver->GPIOx_1, L298_driver->GPIO_Pin_1, GPIO_PIN_RESET);
 	  HAL_GPIO_WritePin(L298_driver->GPIOx_2, L298_driver->GPIO_Pin_2, GPIO_PIN_RESET);

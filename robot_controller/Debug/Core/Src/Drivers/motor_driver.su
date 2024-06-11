@@ -2,6 +2,6 @@
 ../Core/Src/Drivers/motor_driver.c:18:6:init_motor	24	static
 ../Core/Src/Drivers/motor_driver.c:36:6:regulate_velocity	24	static
 ../Core/Src/Drivers/motor_driver.c:50:6:update_motor_position	32	static
-../Core/Src/Drivers/motor_driver.c:86:6:set_velocity	16	static
+../Core/Src/Drivers/motor_driver.c:86:6:motor_state_set_velocity	16	static
 ../Core/Src/Drivers/motor_driver.c:91:6:update_measured_velocity	24	static
 ../Core/Src/Drivers/motor_driver.c:99:7:rotary_displacement	16	static

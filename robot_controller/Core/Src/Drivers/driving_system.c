@@ -6,7 +6,7 @@
  */
 
 #include "driving_system.h"
-
+#include "driving_modes.h"
 
 static char state_str[20];
 static char states_buffer[80];
@@ -20,6 +20,7 @@ void init_driving_system(DrivingSystem* driving_system, MotorStruct* lb_motor, M
 	driving_system->left_motors_lst[1] = lf_motor;
 	driving_system->right_motors_lst[0] = rb_motor;
 	driving_system->right_motors_lst[1] = rf_motor;
+	driving_system->velo_ctrl_flag = 1;
 }
 
 void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
@@ -29,19 +30,47 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 }
 
 
-void drive(DrivingSystem* driving_system){
+void driving_system_drive(DrivingSystem* driving_system, float velo){
 
-	if(driving_system->driving_mode_flag == DV_FLAG_CTRL_VELO){
+//	if(driving_system->driving_mode_flag == DV_FLAG_CTRL_VELO){
+//
+//		for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
+//
+//			regulate_velocity(driving_system->left_motors_lst[i]);
+//			regulate_velocity(driving_system->right_motors_lst[i]);
+//		}
+//	}else if(driving_system->driving_mode_flag == DV_FLAG_PWM){
+//
+////		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver, )
+//	}
 
-		for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
 
+	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
+
+//    	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
+//    	update_measured_velocity(&lb_motor);
+//    	motor_state_set_velocity(&lb_motor_state, velo);
+
+//    	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
+//    	update_motor_position(driving_system->right_motors_lst[i]->motor_state, driving_system->right_motors_lst[i]->encoder_info);
+//    	update_measured_velocity(driving_system->left_motors_lst[i]);
+//    	update_measured_velocity(driving_system->right_motors_lst[i]);
+    	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
+    	update_measured_velocity(driving_system->left_motors_lst[i]);
+    	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
+
+		if(driving_system->velo_ctrl_flag){
 			regulate_velocity(driving_system->left_motors_lst[i]);
 			regulate_velocity(driving_system->right_motors_lst[i]);
 		}
-	}else if(driving_system->driving_mode_flag == DV_FLAG_PWM){
 
-//		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver, )
+		L298N_update_pwm(driving_system->left_motors_lst[i]->L298N_driver);
+		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver);
+
+
 	}
+
+
 }
 
 
@@ -55,7 +84,7 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 	parse_payload(cmd, payload);
 
 
-	if(cmd_code[CMD_ID_POS] == 1)
+	if(cmd_code[CMD_ID_POS] == CMD_ID_STATE_REQ)
 	{
 		send_state(driving_system);
 
@@ -64,23 +93,15 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 	    float vel = 0;
 	    sscanf(payload, "%f", &vel);
+		drive_velo_dir(driving_system, cmd_code[DV_MODE_POS], vel);
 
-		if(cmd_code[DV_MODE_POS] == 1)
-		{
-			send_state(driving_system);
-//			vel = velocity_from_payload(payload);
-//			drive_forward(driving_system, vel);
 
-		}else if(cmd_code[DV_MODE_POS] == 2)
-		{
-//			drive_backward(driving_system, vel);
-			send_drv_err("Backward not implemented");
-		}
+	}else if(cmd_code[CMD_ID_POS] == CMD_ID_PWM_DRIVING_REQ){
 
-	}else if(cmd_code[CMD_ID_POS] == 3){
+	    uint8_t pwm = 0;
+	    sscanf(payload, "%d", &pwm);
 
-		send_drv_err("PWM Mode unimplemented");
-
+		drive_pwm_dir(driving_system, cmd_code[DV_MODE_POS], pwm);
 	}
 	else{
 		uint8_t msg[] = "Undefined First Cmd Literall";
@@ -110,18 +131,6 @@ static void add_state_to_states_buffer(MotorState* motor_state){
 
 }
 
-
-
-
-void drive_forward(DrivingSystem* driving_system, float velocity){
-
-	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i)
-	{
-		set_velocity(driving_system->left_motors_lst[i]->motor_state, velocity);
-		set_velocity(driving_system->right_motors_lst[i]->motor_state, velocity);
-	}
-
-}
 
 
 void send_state(DrivingSystem* driving_system){

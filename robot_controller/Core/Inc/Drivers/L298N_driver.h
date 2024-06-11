@@ -12,13 +12,14 @@
 #include "timers_configuration.h"
 
 
+
 typedef enum{
 
-	STOP,
-	FORWARD,
-	BACKWARD,
+	L298N_MODE_STOP,
+	L298N_MODE_FORWARD,
+	L298N_MODE_BACKWARD,
 
-}E_L298N_MODE;
+}EL298N_MODE;
 
 
 typedef struct{
@@ -43,7 +44,10 @@ void L298N_init(L298N_driver* L298N_driver,
 				GPIO_TypeDef* GPIOx_2_,
 				uint16_t GPIO_Pin_2_);
 
-void L298N_update_pwm(L298N_driver* L298_driver, uint8_t pwm_count);
+void L298N_set_pwm_count(L298N_driver* L298_driver, uint8_t new_pwm_count);
+void L298N_set_input_configuration(L298N_driver* L298_driver, EL298N_MODE l298n_mode);
 
-void L298N_set_input_configuration(L298N_driver* L298_driver, E_L298N_MODE l298n_mode);
+void L298N_update_pwm(L298N_driver* L298_driver);
+
+
 #endif /* INC_DRIVERS_L298N_DRIVER_H_ */

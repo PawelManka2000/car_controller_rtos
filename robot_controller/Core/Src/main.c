@@ -48,7 +48,7 @@ uint8_t cmd_data[10];
 uint8_t pwm_output;
 uint8_t velo;
 uint64_t tick;
-void generate_stair_signal(void);
+void generate_stair_signal_pwm(void);
 void generate_random_signal_velo(void);
 
 
@@ -72,6 +72,12 @@ int main(void)
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
   init_motor(&lb_motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
 
+  updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
+  L298N_set_input_configuration(&L298N_lb, L298N_MODE_FORWARD);
+  init_driving_system(&driving_system ,&lb_motor, &lb_motor,&lb_motor, &lb_motor);
+  default_init_driving_system_if(&drv_system_if);
+
+
   pwm_output = 0;
   tick = 0;
   velo = 0;
@@ -86,16 +92,12 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 
 
-  updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
-  L298N_set_input_configuration(&L298N_lb, FORWARD);
-  init_driving_system(&driving_system ,&lb_motor, &lb_motor, &lb_motor, &lb_motor);
-  default_init_driving_system_if(&drv_system_if);
-
   /* USER CODE END 2 */
 
   HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+//  driving_system.velo_ctrl_flag = 1;
     while (1)
   {
 //    	generate_stair_signal_pwm();
@@ -149,11 +151,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     if (htim->Instance == (TIM_TypeDef *)lb_motor.motor_updater_tim->Instance) {
 
-    	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
-    	update_measured_velocity(&lb_motor);
-    	set_velocity(&lb_motor_state, velo);
 
-    	regulate_velocity(&lb_motor);
+//    	L298N_set_pwm_count(lb_motor.L298N_driver, pwm_output);
+
+    	driving_system_drive(&driving_system, velo);
     	tick += 1;
 //    	L298N_update_pwm(lb_motor.L298N_driver, pwm_output);
 

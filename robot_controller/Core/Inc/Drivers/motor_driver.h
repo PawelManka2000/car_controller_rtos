@@ -52,7 +52,7 @@ void init_motor(
 
 void str_motor_state(MotorState* motor_state, char* state_buffer);
 
-void set_velocity(MotorState *motor_state, float velocity);
+void motor_state_set_velocity(MotorState *motor_state, float velocity);
 
 float rotary_displacement(MotorState *motor_state);
 
