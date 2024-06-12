@@ -14,10 +14,11 @@
 #define CMD_PAYLOAD_LENGTH 6
 #define CMD_CODE_LENGTH 2
 #define CMD_END_CHAR 'f'
+#define PARSING_ERROR_TIMEOUT 10
 
-void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code);
+int parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code);
 
-void parse_payload(char* cmd, uint8_t* payload);
+int parse_payload(uint8_t* cmd, uint8_t* payload);
 
 void velocity_from_payload();
 

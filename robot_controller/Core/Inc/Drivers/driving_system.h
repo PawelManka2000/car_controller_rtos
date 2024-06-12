@@ -16,7 +16,7 @@
 #define CMD_ID_POS 0
 #define DV_MODE_POS 1
 #define NO_OF_SIDE_MOTORS 2
-#define STATE_SENDING_TIMEOUT 100
+#define STATE_SENDING_TIMEOUT 10
 #define DRIVING_ERR "ERR_DRV "
 #define ACK_RESP_HEADER "ACK "
 
@@ -44,7 +44,7 @@ typedef struct {
 } DrivingSystem;
 
 typedef struct {
-	void (*exe_cmd)(DrivingSystem*, uint8_t*);
+	int (*exe_cmd)(DrivingSystem*, uint8_t*);
 	void (*send_state)(DrivingSystem *driving_system);
 
 } DrivingSystemIface;
@@ -54,7 +54,7 @@ void driving_system_drive(DrivingSystem* driving_system, float velo);
 void init_driving_system(DrivingSystem *driving_system, MotorStruct *lb_motor,
 		MotorStruct *lf_motor, MotorStruct *rb_motor, MotorStruct *rf_motor);
 
-void execute_cmd(DrivingSystem *driving_system, uint8_t *cmd);
+int execute_cmd(DrivingSystem *driving_system, uint8_t *cmd);
 
 void send_state(DrivingSystem *driving_system);
 

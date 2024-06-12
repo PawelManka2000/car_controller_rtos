@@ -32,22 +32,10 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 // TODO DELETE VELO
 void driving_system_drive(DrivingSystem* driving_system, float velo){
 
-//	if(driving_system->driving_mode_flag == DV_FLAG_CTRL_VELO){
-//
-//		for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
-//
-//			regulate_velocity(driving_system->left_motors_lst[i]);
-//			regulate_velocity(driving_system->right_motors_lst[i]);
-//		}
-//	}else if(driving_system->driving_mode_flag == DV_FLAG_PWM){
-//
-////		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver, )
-//	}
 
 	// TODO change to NO_OF_SIDE_MOTORS WHEN APPEARS
 //	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
 	for(int i = 0; i < 1; ++i){
-
 
     	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
     	update_measured_velocity(driving_system->left_motors_lst[i]);
@@ -68,14 +56,18 @@ void driving_system_drive(DrivingSystem* driving_system, float velo){
 }
 
 
-void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
+int execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 
 	uint8_t cmd_code[] = "00";
 	uint8_t payload[] = "000000";
 
-	parse_cmd_code(cmd, cmd_code);
-	parse_payload(cmd, payload);
+    if (parse_cmd_code(cmd, cmd_code)) {
+        return 1;
+    }
+    if (parse_payload(cmd, payload)) {
+        return 1;
+    }
 
 
 	if(cmd_code[CMD_ID_POS] == CMD_ID_STATE_REQ)
@@ -89,6 +81,7 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 	    sscanf(payload, "%f", &vel);
 	    send_ack("CMD_ID_CTRL_VELO_REQ received");
 		drive_velo_dir(driving_system, cmd_code[DV_MODE_POS], vel);
+		driving_system->velo_ctrl_flag = 1;
 
 
 	}else if(cmd_code[CMD_ID_POS] == CMD_ID_PWM_DRIVING_REQ){
@@ -97,11 +90,15 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 	    sscanf(payload, "%d", &pwm);
 	    send_ack("CMD_ID_PWM_DRIVING_REQ received");
 		drive_pwm_dir(driving_system, cmd_code[DV_MODE_POS], pwm);
+		driving_system->velo_ctrl_flag = 0;
 	}
 	else{
-		uint8_t msg[] = "Undefined First Cmd Literall";
+		char msg[] = "Undefined First Cmd Literall";
 		send_drv_err(msg);
+		return 1;
 	}
+	return 0;
+
 }
 
 
@@ -113,7 +110,7 @@ void send_drv_err(char* msg){
 	strcat(err_buffer, DRIVING_ERR);
 	strcat(err_buffer, msg);
 	strcat(err_buffer, "\n\r");
-	HAL_UART_Transmit(&hlpuart1,(uint8_t*) err_buffer, strlen(err_buffer),STATE_SENDING_TIMEOUT);
+	HAL_UART_Transmit(&hlpuart1,(uint8_t*) err_buffer, strlen(err_buffer), STATE_SENDING_TIMEOUT);
 
 }
 
@@ -132,7 +129,7 @@ void send_ack(char* msg){
 	strcat(ack_buffer, ACK_RESP_HEADER);
 	strcat(ack_buffer, msg);
 	strcat(ack_buffer, "\n\r");
-	HAL_UART_Transmit(&hlpuart1,(uint8_t*) ack_buffer, strlen(ack_buffer),STATE_SENDING_TIMEOUT);
+	HAL_UART_Transmit(&hlpuart1,(uint8_t*) ack_buffer, strlen(ack_buffer), STATE_SENDING_TIMEOUT);
 
 }
 
