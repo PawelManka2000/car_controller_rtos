@@ -152,6 +152,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == (TIM_TypeDef *)lb_motor.motor_updater_tim->Instance) {
 
 
+//    	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
+//    	update_measured_velocity(&lb_motor);
+//    	motor_state_set_velocity(&lb_motor_state, velo);
 //    	L298N_set_pwm_count(lb_motor.L298N_driver, pwm_output);
 
     	driving_system_drive(&driving_system, velo);

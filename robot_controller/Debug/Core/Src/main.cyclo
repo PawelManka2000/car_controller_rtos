@@ -3,4 +3,4 @@
 ../Core/Src/main.c:118:6:generate_stair_signal_pwm	3
 ../Core/Src/main.c:129:6:generate_random_signal_velo	3
 ../Core/Src/main.c:149:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:172:6:Error_Handler	1
+../Core/Src/main.c:175:6:Error_Handler	1

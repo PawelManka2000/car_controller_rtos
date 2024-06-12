@@ -29,7 +29,7 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 	drv_system_if->send_state = send_state;
 }
 
-
+// TODO DELETE VELO
 void driving_system_drive(DrivingSystem* driving_system, float velo){
 
 //	if(driving_system->driving_mode_flag == DV_FLAG_CTRL_VELO){
@@ -44,28 +44,22 @@ void driving_system_drive(DrivingSystem* driving_system, float velo){
 ////		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver, )
 //	}
 
+	// TODO change to NO_OF_SIDE_MOTORS WHEN APPEARS
+//	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
+	for(int i = 0; i < 1; ++i){
 
-	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
 
-//    	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
-//    	update_measured_velocity(&lb_motor);
-//    	motor_state_set_velocity(&lb_motor_state, velo);
-
-//    	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
-//    	update_motor_position(driving_system->right_motors_lst[i]->motor_state, driving_system->right_motors_lst[i]->encoder_info);
-//    	update_measured_velocity(driving_system->left_motors_lst[i]);
-//    	update_measured_velocity(driving_system->right_motors_lst[i]);
     	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
     	update_measured_velocity(driving_system->left_motors_lst[i]);
     	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
 
 		if(driving_system->velo_ctrl_flag){
 			regulate_velocity(driving_system->left_motors_lst[i]);
-			regulate_velocity(driving_system->right_motors_lst[i]);
+//			regulate_velocity(driving_system->right_motors_lst[i]);
 		}
 
 		L298N_update_pwm(driving_system->left_motors_lst[i]->L298N_driver);
-		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver);
+//		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver);
 
 
 	}
