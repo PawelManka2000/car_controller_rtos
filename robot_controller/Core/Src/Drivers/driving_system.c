@@ -51,7 +51,7 @@ void driving_system_drive(DrivingSystem* driving_system, float velo){
 
     	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
     	update_measured_velocity(driving_system->left_motors_lst[i]);
-    	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
+//    	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
 
 		if(driving_system->velo_ctrl_flag){
 			regulate_velocity(driving_system->left_motors_lst[i]);
@@ -87,6 +87,7 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 	    float vel = 0;
 	    sscanf(payload, "%f", &vel);
+	    send_ack("CMD_ID_CTRL_VELO_REQ received");
 		drive_velo_dir(driving_system, cmd_code[DV_MODE_POS], vel);
 
 
@@ -94,7 +95,7 @@ void execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
 	    uint8_t pwm = 0;
 	    sscanf(payload, "%d", &pwm);
-
+	    send_ack("CMD_ID_PWM_DRIVING_REQ received");
 		drive_pwm_dir(driving_system, cmd_code[DV_MODE_POS], pwm);
 	}
 	else{
@@ -125,7 +126,15 @@ static void add_state_to_states_buffer(MotorState* motor_state){
 
 }
 
+void send_ack(char* msg){
+	char ack_buffer[100];
+	memset(ack_buffer, '\0', sizeof(ack_buffer));
+	strcat(ack_buffer, ACK_RESP_HEADER);
+	strcat(ack_buffer, msg);
+	strcat(ack_buffer, "\n\r");
+	HAL_UART_Transmit(&hlpuart1,(uint8_t*) ack_buffer, strlen(ack_buffer),STATE_SENDING_TIMEOUT);
 
+}
 
 void send_state(DrivingSystem* driving_system){
 

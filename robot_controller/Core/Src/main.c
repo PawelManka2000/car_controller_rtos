@@ -102,7 +102,7 @@ int main(void)
   {
 //    	generate_stair_signal_pwm();
 //    	generate_stair_signal();
-    	generate_random_signal_velo();
+//    	generate_random_signal_velo();
   }
 
 }

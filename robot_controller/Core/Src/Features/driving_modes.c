@@ -51,8 +51,8 @@ void drive_velo(DrivingSystem* driving_system, float velocity, EL298N_MODE left_
 		motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velocity);
 		motor_state_set_velocity(driving_system->right_motors_lst[i]->motor_state, velocity);
 
-		regulate_velocity(driving_system->right_motors_lst[i]);
-		regulate_velocity(driving_system->left_motors_lst[i]);
+//		regulate_velocity(driving_system->right_motors_lst[i]);
+//		regulate_velocity(driving_system->left_motors_lst[i]);
 	}
 }
 

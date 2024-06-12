@@ -18,7 +18,7 @@
 #define NO_OF_SIDE_MOTORS 2
 #define STATE_SENDING_TIMEOUT 100
 #define DRIVING_ERR "ERR_DRV "
-
+#define ACK_RESP_HEADER "ACK "
 
 // CMD_NAME
 enum ECmdId{
