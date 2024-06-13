@@ -10,10 +10,6 @@
 #include "timers_configuration.h"
 
 
-void str_motor_state(MotorState* motor_state, char* state_buffer){
-
-	sprintf(state_buffer, "%d,%.2f,%.2f\n\r", motor_state->motor_id, motor_state->set_velocity, motor_state->measured_velocity);
-}
 
 void init_motor(
 		MotorStruct *motor_struct,
@@ -29,6 +25,26 @@ void init_motor(
 	motor_struct->encoder_info = enc_inf_param_;
 	motor_struct->L298N_driver = L298N_;
 	motor_struct->pid_controller = pid_controller_;
+
+}
+
+void str_motor_state(MotorState* motor_state, char* state_buffer){
+
+	sprintf(state_buffer, "%d,%.2f,%.2f\n\r", motor_state->motor_id, motor_state->set_velocity, motor_state->measured_velocity);
+}
+
+void bytes_motor_state(MotorState* motor_state, uint8_t* state_payload){
+
+	state_payload[0] = motor_state->motor_id;
+	state_payload[1]=  (uint8_t)motor_state->measured_velocity;
+	uint64_t position_uint = (int32_t)motor_state->position;
+
+	state_payload[2] = (position_uint >> 0) & (0xFF);
+	state_payload[3] = (position_uint >> 8) & (0xFF);
+	state_payload[4] = (position_uint >> 16) & (0xFF);
+	state_payload[5] = (position_uint >> 24) & (0xFF);
+
+
 
 }
 

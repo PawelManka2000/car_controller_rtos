@@ -27,6 +27,7 @@ enum EMsgID{
 	UNKNOWN = 0x00,
 	MSG_CMD_REQUEST = 0x01,
 	MSG_CMD_RESPONSE = 0x02,
+	MSG_STATE = 0x03
 
 };
 

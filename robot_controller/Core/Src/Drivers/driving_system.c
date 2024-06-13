@@ -8,9 +8,9 @@
 #include "driving_system.h"
 #include "driving_modes.h"
 
-static char state_str[20];
-static char states_buffer[80];
-static void add_state_to_states_buffer(MotorState* motor_state);
+
+
+static void add_states_payload_to_state_msg(MotorState* motor_state, uint8_t* offset, uint8_t* state_msg);
 
 
 void init_driving_system(DrivingSystem* driving_system, MotorStruct* lb_motor, MotorStruct* lf_motor, MotorStruct* rb_motor, MotorStruct* rf_motor)
@@ -116,12 +116,17 @@ void send_drv_err(char* msg){
 }
 
 
-static void add_state_to_states_buffer(MotorState* motor_state){
+static void add_states_payload_to_state_msg(MotorState* motor_state, uint8_t* offset, uint8_t* state_msg){
 
-	memset(state_str, '\0', sizeof(state_str));
-	str_motor_state(motor_state, state_str);
-	strcat(states_buffer, state_str);
+	uint8_t payload_length = 6;
+	uint8_t state_payload[payload_length];
+	bytes_motor_state(motor_state, state_payload);
 
+	for (int i = 0; i < payload_length; i++){
+		state_msg[*offset + i] = state_payload[i];
+	}
+
+	*offset = *offset + payload_length;
 }
 
 void send_ack(char* msg){
@@ -142,16 +147,19 @@ void send_resp(enum ECmdId cmd_code,uint8_t* cmd_status){
 
 void send_state(DrivingSystem* driving_system){
 
+	uint8_t state_msg_length = 26;
+	uint8_t state_msg[state_msg_length];
+	state_msg[0] = MSG_STATE;
+	uint8_t offset = 1;
 
-	memset(states_buffer, '\0', sizeof(states_buffer));
 
 	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
 
-		add_state_to_states_buffer(driving_system->left_motors_lst[i]->motor_state);
-		add_state_to_states_buffer(driving_system->right_motors_lst[i]->motor_state);
+		add_states_payload_to_state_msg(driving_system->left_motors_lst[i]->motor_state, &offset, state_msg);
+		add_states_payload_to_state_msg(driving_system->right_motors_lst[i]->motor_state, &offset, state_msg);
 	}
-
-	HAL_UART_Transmit(&hlpuart1,(uint8_t*) states_buffer, strlen(states_buffer),STATE_SENDING_TIMEOUT);
+	state_msg[state_msg_length-1] = MSG_END_CHAR;
+	HAL_UART_Transmit(&hlpuart1,(uint8_t*) state_msg, strlen(state_msg),STATE_SENDING_TIMEOUT);
 
 }
 
