@@ -43,7 +43,7 @@ DrivingSystem driving_system;
 DrivingSystemIface drv_system_if;
 
 float updater_timer_periods;
-char cmd_data[CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH];
+char cmd_data[CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH];
 
 uint8_t pwm_output;
 uint8_t velo;
@@ -94,7 +94,7 @@ int main(void)
 
   /* USER CODE END 2 */
 
-  HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
+  HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH);
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 //  driving_system.velo_ctrl_flag = 1;
@@ -111,7 +111,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 
 	drv_system_if.exe_cmd(&driving_system, cmd_data);
-	HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + CMD_PAYLOAD_LENGTH);
+	HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH);
 
 }
 

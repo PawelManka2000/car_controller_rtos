@@ -98,5 +98,7 @@ void update_measured_velocity(MotorStruct* motor_struct)
 
 float rotary_displacement(MotorState *motor_state){
 
-	return motor_state->position - motor_state->last_position;
+	// physically displacement shouldn't be negative value, but this mean it has different direction
+	// which will be pointed by position value
+	return fabs(motor_state->position - motor_state->last_position);
 }

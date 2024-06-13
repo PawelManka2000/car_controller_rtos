@@ -58,38 +58,39 @@ void driving_system_drive(DrivingSystem* driving_system, float velo){
 
 int execute_cmd(DrivingSystem* driving_system, uint8_t* cmd){
 
+	uint8_t cmd_id = 0x00;
+	uint8_t cmd_code[] = {0x00};
+	uint8_t payload[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-	uint8_t cmd_code[] = "00";
-	uint8_t payload[] = "000000";
+	parse_msg_cmd_id(cmd, &cmd_id);
+	if(cmd_id != MSG_CMD_REQUEST){
+		return 1;
+	}
 
-    if (parse_cmd_code(cmd, cmd_code)) {
-        return 1;
-    }
+    parse_cmd_code(cmd, cmd_code);
     if (parse_payload(cmd, payload)) {
         return 1;
     }
 
 
-	if(cmd_code[CMD_ID_POS] == CMD_ID_STATE_REQ)
+	if(cmd_code[CMD_CODE_ID_POS] == CMD_ID_STATE_REQ)
 	{
 		send_state(driving_system);
 
-	}else if(cmd_code[CMD_ID_POS] == CMD_ID_CTRL_VELO_REQ)
+	}else if(cmd_code[CMD_CODE_ID_POS] == CMD_ID_CTRL_VELO_REQ)
 	{
+		int whole_number = payload[1];
+		float fractional_part =  payload[2] /100.0;
+		float vel = fractional_part + whole_number;
 
-	    float vel = 0;
-	    sscanf(payload, "%f", &vel);
-	    send_ack("CMD_ID_CTRL_VELO_REQ received");
-		drive_velo_dir(driving_system, cmd_code[DV_MODE_POS], vel);
+		drive_velo_dir(driving_system, payload[PAYLOAD_DV_MODE_POS], vel);
 		driving_system->velo_ctrl_flag = 1;
 
 
-	}else if(cmd_code[CMD_ID_POS] == CMD_ID_PWM_DRIVING_REQ){
+	}else if(cmd_code[CMD_CODE_ID_POS] == CMD_ID_PWM_DRIVING_REQ){
 
-	    uint8_t pwm = 0;
-	    sscanf(payload, "%d", &pwm);
-	    send_ack("CMD_ID_PWM_DRIVING_REQ received");
-		drive_pwm_dir(driving_system, cmd_code[DV_MODE_POS], pwm);
+	    uint8_t pwm = payload[1];
+		drive_pwm_dir(driving_system, payload[PAYLOAD_DV_MODE_POS], pwm);
 		driving_system->velo_ctrl_flag = 0;
 	}
 	else{
@@ -132,6 +133,12 @@ void send_ack(char* msg){
 	HAL_UART_Transmit(&hlpuart1,(uint8_t*) ack_buffer, strlen(ack_buffer), STATE_SENDING_TIMEOUT);
 
 }
+
+void send_resp(enum ECmdId cmd_code,uint8_t* cmd_status){
+
+
+}
+
 
 void send_state(DrivingSystem* driving_system){
 
