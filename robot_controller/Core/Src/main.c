@@ -43,7 +43,7 @@ DrivingSystem driving_system;
 DrivingSystemIface drv_system_if;
 
 float updater_timer_periods;
-char cmd_data[CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH];
+uint8_t cmd_data[CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH];
 
 uint8_t pwm_output;
 uint8_t velo;

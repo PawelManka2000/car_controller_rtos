@@ -39,10 +39,10 @@ void bytes_motor_state(MotorState* motor_state, uint8_t* state_payload){
 	state_payload[1]=  (uint8_t)motor_state->measured_velocity;
 	uint64_t position_uint = (int32_t)motor_state->position;
 
-	state_payload[2] = (position_uint >> 0) & (0xFF);
-	state_payload[3] = (position_uint >> 8) & (0xFF);
-	state_payload[4] = (position_uint >> 16) & (0xFF);
-	state_payload[5] = (position_uint >> 24) & (0xFF);
+	state_payload[2] = (position_uint >> 24) & (0xFF);
+	state_payload[3] = (position_uint >> 16) & (0xFF);
+	state_payload[4] = (position_uint >> 8) & (0xFF);
+	state_payload[5] = (position_uint >> 0) & (0xFF);
 
 
 

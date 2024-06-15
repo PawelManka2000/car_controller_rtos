@@ -123,10 +123,10 @@ static void add_states_payload_to_state_msg(MotorState* motor_state, uint8_t* of
 	bytes_motor_state(motor_state, state_payload);
 
 	for (int i = 0; i < payload_length; i++){
-		state_msg[*offset + i] = state_payload[i];
+		state_msg[*offset] = state_payload[i];
+		*offset += 1;
 	}
 
-	*offset = *offset + payload_length;
 }
 
 void send_ack(char* msg){
@@ -159,7 +159,7 @@ void send_state(DrivingSystem* driving_system){
 		add_states_payload_to_state_msg(driving_system->right_motors_lst[i]->motor_state, &offset, state_msg);
 	}
 	state_msg[state_msg_length-1] = MSG_END_CHAR;
-	HAL_UART_Transmit(&hlpuart1,(uint8_t*) state_msg, strlen(state_msg),STATE_SENDING_TIMEOUT);
+	HAL_UART_Transmit(&hlpuart1,(uint8_t*) state_msg, sizeof(state_msg)/sizeof(state_msg[0]),STATE_SENDING_TIMEOUT);
 
 }
 
