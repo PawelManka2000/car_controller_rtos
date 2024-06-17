@@ -9,6 +9,10 @@
 #include "motor_driver.h"
 #include "timers_configuration.h"
 
+void init_motor_state(MotorState *motor_state, EMotorId motor_id_){
+
+	motor_state->motor_id = motor_id_;
+}
 
 
 void init_motor(

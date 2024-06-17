@@ -18,6 +18,15 @@
 
 #define STATE_BUFFER_LENGTH 40
 
+typedef enum {
+
+	LB = 1,
+	RB = 2,
+	RF = 3,
+	LF = 4
+
+}EMotorId;
+
 typedef struct{
 
 	float measured_velocity;

@@ -88,17 +88,40 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM8_Init();
 
-  init_encoder_info(&lb_encoder_info, &htim4);
 
+  init_encoder_info(&lb_encoder_info, &htim4);
+  init_encoder_info(&rb_encoder_info, &htim5);
+  init_encoder_info(&rf_encoder_info, &htim3);
+  init_encoder_info(&lf_encoder_info, &htim8);
+
+
+
+  init_motor_state(&lb_motor_state, LB);
+  init_motor_state(&rb_motor_state, RB);
+  init_motor_state(&rf_motor_state, RF);
+  init_motor_state(&lf_motor_state, LF);
 
 
   L298N_init(&lb_L298N, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+  L298N_init(&rb_L298N, TIM_CHANNEL_2, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+  L298N_init(&rf_L298N, TIM_CHANNEL_3, &htim1, GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_9);
+  L298N_init(&lf_L298N, TIM_CHANNEL_4, &htim1, GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_9);
+
+
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
+
+ //TODO
   init_motor(&lb_motor, &lb_motor_state, &htim7, &lb_encoder_info, &pid_controller, &lb_L298N);
+  init_motor(&rb_motor, &rb_motor_state, &htim7, &rb_encoder_info, &pid_controller, &rb_L298N);
+  init_motor(&rf_motor, &rf_motor_state, &htim7, &rf_encoder_info, &pid_controller, &rf_L298N);
+  init_motor(&lf_motor, &lf_motor_state, &htim7, &lf_encoder_info, &pid_controller, &lf_L298N);
+
 
   updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
+
+
   L298N_set_input_configuration(&lb_L298N, L298N_MODE_FORWARD);
-  init_driving_system(&driving_system ,&lb_motor, &lb_motor,&lb_motor, &lb_motor);
+  init_driving_system(&driving_system ,&lb_motor, &rb_motor,&rf_motor, &lf_motor);
   default_init_driving_system_if(&drv_system_if);
 
 
