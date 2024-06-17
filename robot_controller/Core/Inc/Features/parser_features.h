@@ -11,12 +11,19 @@
 #include "uart_configuration.h"
 
 #define PARSING_ERR "ERR_PARSE "
-#define PAYLOAD_LENGHT 8
-#define CMD_END_CHAR 'f'
+#define MSG_PAYLOAD_LENGTH 6
+#define CMD_CODE_LENGTH 2
+
+#define MSG_CMD_PAYLOAD_BEGIN 2
+
+#define MSG_END_CHAR 0xFE
+#define PARSING_ERROR_TIMEOUT 10
+
+void parse_msg_cmd_id(uint8_t* cmd, uint8_t* msg_cmd_id);
 
 void parse_cmd_code(uint8_t* cmd, uint8_t* cmd_code);
 
-void parse_payload(char* cmd, uint8_t* payload);
+int parse_payload(uint8_t* cmd, uint8_t* payload);
 
 void velocity_from_payload();
 

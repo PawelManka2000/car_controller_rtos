@@ -10,10 +10,6 @@
 #include "timers_configuration.h"
 
 
-void str_motor_state(MotorState* motor_state, char* state_buffer){
-
-	sprintf(state_buffer, "%d,%.2f,%.2f\n\r", motor_state->motor_id, motor_state->set_velocity, motor_state->measured_velocity);
-}
 
 void init_motor(
 		MotorStruct *motor_struct,
@@ -32,6 +28,26 @@ void init_motor(
 
 }
 
+void str_motor_state(MotorState* motor_state, char* state_buffer){
+
+	sprintf(state_buffer, "%d,%.2f,%.2f\n\r", motor_state->motor_id, motor_state->set_velocity, motor_state->measured_velocity);
+}
+
+void bytes_motor_state(MotorState* motor_state, uint8_t* state_payload){
+
+	state_payload[0] = motor_state->motor_id;
+	state_payload[1]=  (uint8_t)motor_state->measured_velocity;
+	uint64_t position_uint = (int32_t)motor_state->position;
+
+	state_payload[2] = (position_uint >> 24) & (0xFF);
+	state_payload[3] = (position_uint >> 16) & (0xFF);
+	state_payload[4] = (position_uint >> 8) & (0xFF);
+	state_payload[5] = (position_uint >> 0) & (0xFF);
+
+
+
+}
+
 
 void regulate_velocity(MotorStruct *motor_struct)
 {
@@ -41,7 +57,7 @@ void regulate_velocity(MotorStruct *motor_struct)
 										current_motor_state->set_velocity,
 										current_motor_state->measured_velocity);
 	uint8_t saturated_pwm_value = saturate_pwm(pwm_value);
-	L298N_update_pwm(motor_struct->L298N_driver, saturated_pwm_value);
+	L298N_set_pwm_count(motor_struct->L298N_driver, saturated_pwm_value);
 
 }
 
@@ -83,7 +99,7 @@ void update_motor_position(MotorState* motor_state, EncoderInfo* encoder_info)
 
 }
 
-void set_velocity(MotorState *motor_state, float velocity)
+void motor_state_set_velocity(MotorState *motor_state, float velocity)
 {
 	motor_state->set_velocity = velocity;
 }
@@ -98,5 +114,7 @@ void update_measured_velocity(MotorStruct* motor_struct)
 
 float rotary_displacement(MotorState *motor_state){
 
-	return motor_state->position - motor_state->last_position;
+	// physically displacement shouldn't be negative value, but this mean it has different direction
+	// which will be pointed by position value
+	return fabs(motor_state->position - motor_state->last_position);
 }
