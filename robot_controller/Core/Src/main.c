@@ -17,9 +17,9 @@
   */
 
 /* USER CODE BEGIN 3 */
+#include "main.h"
 #include <motor_driver.h>
 #include <timers_configuration.h>
-#include "main.h"
 #include "clock_configuration.h"
 #include "gpio_configuration.h"
 #include "uart_configuration.h"
@@ -28,22 +28,43 @@
 #include "parser_features.h"
 
 
-float rotate = 0;
-float speed = 0;
-uint16_t timer_counter = 0;
-char message[100];
 
-//EngineInfo motor;
-EncoderInfo encoder_info;
-MotorStruct lb_motor;
 PIDController pid_controller;
-L298N_driver L298N_lb;
+
+EncoderInfo lb_encoder_info;
+EncoderInfo rb_encoder_info;
+EncoderInfo rf_encoder_info;
+EncoderInfo lf_encoder_info;
+
+MotorStruct lb_motor;
+MotorStruct rb_motor;
+MotorStruct rf_motor;
+MotorStruct lf_motor;
+
+L298N_driver lb_L298N;
+L298N_driver rb_L298N;
+L298N_driver rf_L298N;
+L298N_driver lf_L298N;
+
 MotorState lb_motor_state;
+MotorState rb_motor_state;
+MotorState rf_motor_state;
+MotorState lf_motor_state;
+
+
 DrivingSystem driving_system;
 DrivingSystemIface drv_system_if;
 
 float updater_timer_periods;
 uint8_t cmd_data[CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH];
+
+
+
+float rotate = 0;
+float speed = 0;
+uint16_t timer_counter = 0;
+char message[100];
+
 
 uint8_t pwm_output;
 uint8_t velo;
@@ -67,13 +88,16 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM8_Init();
 
-  init_encoder_info(&encoder_info, &htim4);
-  L298N_init(&L298N_lb, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+  init_encoder_info(&lb_encoder_info, &htim4);
+
+
+
+  L298N_init(&lb_L298N, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
   pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
-  init_motor(&lb_motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
+  init_motor(&lb_motor, &lb_motor_state, &htim7, &lb_encoder_info, &pid_controller, &lb_L298N);
 
   updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
-  L298N_set_input_configuration(&L298N_lb, L298N_MODE_FORWARD);
+  L298N_set_input_configuration(&lb_L298N, L298N_MODE_FORWARD);
   init_driving_system(&driving_system ,&lb_motor, &lb_motor,&lb_motor, &lb_motor);
   default_init_driving_system_if(&drv_system_if);
 

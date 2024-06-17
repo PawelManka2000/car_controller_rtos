@@ -27,10 +27,12 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32g4xx_hal.h"
 
+#include "stm32g4xx_hal.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+
 
 /* USER CODE END Includes */
 
@@ -68,7 +70,10 @@ void Error_Handler(void);
 #define T_SWO_Pin GPIO_PIN_3
 #define T_SWO_GPIO_Port GPIOB
 
+
 /* USER CODE BEGIN Private defines */
+
+
 
 /* USER CODE END Private defines */
 

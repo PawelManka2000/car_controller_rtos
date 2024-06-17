@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000f1d0  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0001dfdd  00000000  00000000  0000f200  2**0
+ 12 .debug_info   0001e0a9  00000000  00000000  0000f200  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000044c8  00000000  00000000  0002d1dd  2**0
+ 13 .debug_abbrev 000044c8  00000000  00000000  0002d2a9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00001650  00000000  00000000  000316a8  2**3
+ 14 .debug_aranges 00001650  00000000  00000000  00031778  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00001128  00000000  00000000  00032cf8  2**0
+ 15 .debug_rnglists 00001128  00000000  00000000  00032dc8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00029a5e  00000000  00000000  00033e20  2**0
+ 16 .debug_macro  00029a2a  00000000  00000000  00033ef0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001edd9  00000000  00000000  0005d87e  2**0
+ 17 .debug_line   0001edda  00000000  00000000  0005d91a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    001061c7  00000000  00000000  0007c657  2**0
+ 18 .debug_str    0010624f  00000000  00000000  0007c6f4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0018281e  2**0
+ 19 .comment      00000043  00000000  00000000  00182943  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00006fb0  00000000  00000000  00182864  2**2
+ 20 .debug_frame  00006fb0  00000000  00000000  00182988  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000007c  00000000  00000000  00189814  2**0
+ 21 .debug_line_str 0000007c  00000000  00000000  00189938  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -4766,11 +4766,14 @@ int main(void)
   MX_TIM8_Init();
  8002636:	f7fe ffc5 	bl	80015c4 <MX_TIM8_Init>
 
-  init_encoder_info(&encoder_info, &htim4);
+  init_encoder_info(&lb_encoder_info, &htim4);
  800263a:	4936      	ldr	r1, [pc, #216]	@ (8002714 <main+0x10c>)
  800263c:	4836      	ldr	r0, [pc, #216]	@ (8002718 <main+0x110>)
  800263e:	f7ff fb7f 	bl	8001d40 <init_encoder_info>
-  L298N_init(&L298N_lb, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+
+
+
+  L298N_init(&lb_L298N, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
  8002642:	2302      	movs	r3, #2
  8002644:	9302      	str	r3, [sp, #8]
  8002646:	f04f 4390 	mov.w	r3, #1207959552	@ 0x48000000
@@ -4789,7 +4792,7 @@ int main(void)
  8002668:	ed9f 0a30 	vldr	s0, [pc, #192]	@ 800272c <main+0x124>
  800266c:	4830      	ldr	r0, [pc, #192]	@ (8002730 <main+0x128>)
  800266e:	f7ff fcd7 	bl	8002020 <pid_init>
-  init_motor(&lb_motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
+  init_motor(&lb_motor, &lb_motor_state, &htim7, &lb_encoder_info, &pid_controller, &lb_L298N);
  8002672:	4b2b      	ldr	r3, [pc, #172]	@ (8002720 <main+0x118>)
  8002674:	9301      	str	r3, [sp, #4]
  8002676:	4b2e      	ldr	r3, [pc, #184]	@ (8002730 <main+0x128>)
@@ -4808,7 +4811,7 @@ int main(void)
  8002690:	eef0 7a40 	vmov.f32	s15, s0
  8002694:	4b2a      	ldr	r3, [pc, #168]	@ (8002740 <main+0x138>)
  8002696:	edc3 7a00 	vstr	s15, [r3]
-  L298N_set_input_configuration(&L298N_lb, L298N_MODE_FORWARD);
+  L298N_set_input_configuration(&lb_L298N, L298N_MODE_FORWARD);
  800269a:	2101      	movs	r1, #1
  800269c:	4820      	ldr	r0, [pc, #128]	@ (8002720 <main+0x118>)
  800269e:	f7ff f8fe 	bl	800189e <L298N_set_input_configuration>
@@ -4882,16 +4885,16 @@ int main(void)
  8002710:	bf00      	nop
  8002712:	e7fd      	b.n	8002710 <main+0x108>
  8002714:	20000284 	.word	0x20000284
- 8002718:	200004f0 	.word	0x200004f0
+ 8002718:	20000508 	.word	0x20000508
  800271c:	200001ec 	.word	0x200001ec
  8002720:	20000528 	.word	0x20000528
  8002724:	00000000 	.word	0x00000000
  8002728:	3e4ccccd 	.word	0x3e4ccccd
  800272c:	3c23d70a 	.word	0x3c23d70a
- 8002730:	20000510 	.word	0x20000510
+ 8002730:	200004f0 	.word	0x200004f0
  8002734:	2000031c 	.word	0x2000031c
  8002738:	20000544 	.word	0x20000544
- 800273c:	200004f8 	.word	0x200004f8
+ 800273c:	20000510 	.word	0x20000510
  8002740:	20000574 	.word	0x20000574
  8002744:	20000558 	.word	0x20000558
  8002748:	2000056c 	.word	0x2000056c
@@ -4987,7 +4990,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  80027da:	46bd      	mov	sp, r7
  80027dc:	bdb0      	pop	{r4, r5, r7, pc}
  80027de:	bf00      	nop
- 80027e0:	200004f8 	.word	0x200004f8
+ 80027e0:	20000510 	.word	0x20000510
  80027e4:	20000581 	.word	0x20000581
  80027e8:	20000558 	.word	0x20000558
  80027ec:	20000588 	.word	0x20000588
