@@ -1,8 +1,9 @@
-../Core/Src/main.c:72:6:prepare_for_motor_ini_lb	1
-../Core/Src/main.c:83:6:prepare_for_motor_ini_lf	1
-../Core/Src/main.c:105:5:main	1
-../Core/Src/main.c:157:6:HAL_UART_RxCpltCallback	1
-../Core/Src/main.c:165:6:generate_stair_signal_pwm	3
-../Core/Src/main.c:176:6:generate_random_signal_velo	3
-../Core/Src/main.c:196:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:222:6:Error_Handler	1
+../Core/Src/main.c:74:6:prepare_for_motor_ini_lb	1
+../Core/Src/main.c:85:6:prepare_for_motor_ini_lf	1
+../Core/Src/main.c:95:6:prepare_for_motor_ini_rb	1
+../Core/Src/main.c:121:5:main	1
+../Core/Src/main.c:177:6:HAL_UART_RxCpltCallback	1
+../Core/Src/main.c:185:6:generate_stair_signal_pwm	3
+../Core/Src/main.c:196:6:generate_random_signal_velo	3
+../Core/Src/main.c:216:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:242:6:Error_Handler	1

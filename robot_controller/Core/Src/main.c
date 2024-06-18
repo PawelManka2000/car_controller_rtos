@@ -47,6 +47,8 @@ MotorStruct lf_motor;
 L298N_driver lf_L298N;
 MotorState lf_motor_state;
 
+
+PIDController rb_pid_controller;
 EncoderInfo rb_encoder_info;
 MotorStruct rb_motor;
 L298N_driver rb_L298N;
@@ -90,6 +92,20 @@ void prepare_for_motor_ini_lf(){
 	updater_timer_periods = CountPeriodS(lf_motor.motor_updater_tim);
 }
 
+void prepare_for_motor_ini_rb(){
+
+	init_encoder_info(&rb_encoder_info, &htim8);
+	L298N_init(&rb_L298N, TIM_CHANNEL_3, &htim1, GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_9);
+	pid_init(&rb_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
+	init_motor(&rb_motor, &rb_motor_state, &htim7, &rb_encoder_info, &rb_pid_controller, &rb_L298N);
+
+	updater_timer_periods = CountPeriodS(lf_motor.motor_updater_tim);
+}
+
+
+
+
+
 //void prepare_for_motor_ini_rb(){
 //
 //	init_encoder_info(&eb_encoder_info, &htim5);
@@ -120,7 +136,9 @@ int main(void)
 
   prepare_for_motor_ini_lb();
   prepare_for_motor_ini_lf();
-  init_driving_system(&driving_system ,&lb_motor, &lf_motor,&lb_motor, &lb_motor);
+  prepare_for_motor_ini_rb();
+
+  init_driving_system(&driving_system ,&lb_motor, &lf_motor, &rb_motor, &lb_motor);
   default_init_driving_system_if(&drv_system_if);
 
   velo = 0;
@@ -134,8 +152,10 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 
 
 
