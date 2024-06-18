@@ -60,7 +60,7 @@ void drive_pwm(DrivingSystem* driving_system, uint8_t pwm, EL298N_MODE left_dir,
 	{
 		L298N_set_input_configuration(driving_system->left_motors_lst[i]->L298N_driver, left_dir);
 		L298N_set_input_configuration(driving_system->right_motors_lst[i]->L298N_driver, right_dir);
-		L298N_set_pwm_count(driving_system->right_motors_lst[i]->L298N_driver, pwm);
+		L298N_set_pwm_count(driving_system->left_motors_lst[i]->L298N_driver, pwm);
 		L298N_set_pwm_count(driving_system->right_motors_lst[i]->L298N_driver, pwm);
 	}
 

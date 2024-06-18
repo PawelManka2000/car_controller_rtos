@@ -12,6 +12,7 @@
 #include "motor_driver.h"
 #include "uart_configuration.h"
 #include "parser_features.h"
+#include "enums.h"
 
 #define MSG_ID_POS 0
 #define CMD_CODE_ID_POS 0
@@ -22,35 +23,7 @@
 #define DRIVING_ERR "ERR_DRV "
 #define ACK_RESP_HEADER "ACK "
 
-enum EMsgID{
 
-	UNKNOWN = 0x00,
-	MSG_CMD_REQUEST = 0x01,
-	MSG_CMD_RESPONSE = 0x02,
-	MSG_STATE = 0x03
-
-};
-
-// CMD_NAME
-enum ECmdId{
-
-	CMD_ID_UNKNOWN = 0x00,
-	CMD_ID_STATE_REQ = 0x01,
-	CMD_ID_CTRL_VELO_REQ = 0x02,
-	CMD_ID_PWM_DRIVING_REQ = 0x03,
-};
-
-enum EDvModeFlag{
-
-	DV_FLAG_CTRL_VELO = 0,
-	DV_FLAG_PWM = 1,
-};
-
-enum ECmdStatus{
-	CMD_SUCCESS = 0x1,
-	CMD_ERROR = 0xFF,
-
-};
 
 
 typedef struct {
@@ -66,7 +39,7 @@ typedef struct {
 
 } DrivingSystemIface;
 
-void driving_system_drive(DrivingSystem* driving_system, float velo);
+void driving_system_drive(DrivingSystem* driving_system);
 
 void init_driving_system(DrivingSystem *driving_system, MotorStruct *lb_motor,
 		MotorStruct *lf_motor, MotorStruct *rb_motor, MotorStruct *rf_motor);

@@ -34,11 +34,28 @@ uint16_t timer_counter = 0;
 char message[100];
 
 //EngineInfo motor;
-EncoderInfo encoder_info;
+PIDController lb_pid_controller;
+EncoderInfo lb_encoder_info;
 MotorStruct lb_motor;
-PIDController pid_controller;
-L298N_driver L298N_lb;
+L298N_driver lb_L298N;
 MotorState lb_motor_state;
+
+//PIDController pid_controller;
+PIDController lf_pid_controller;
+EncoderInfo lf_encoder_info;
+MotorStruct lf_motor;
+L298N_driver lf_L298N;
+MotorState lf_motor_state;
+
+EncoderInfo rb_encoder_info;
+MotorStruct rb_motor;
+L298N_driver rb_L298N;
+MotorState rb_motor_state;
+
+
+
+
+
 DrivingSystem driving_system;
 DrivingSystemIface drv_system_if;
 
@@ -50,6 +67,39 @@ uint8_t velo;
 uint64_t tick;
 void generate_stair_signal_pwm(void);
 void generate_random_signal_velo(void);
+
+
+void prepare_for_motor_ini_lb(){
+
+
+	init_encoder_info(&lb_encoder_info, &htim4);
+	L298N_init(&lb_L298N, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+	pid_init(&lb_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
+	init_motor(&lb_motor, &lb_motor_state, &htim7, &lb_encoder_info, &lb_pid_controller, &lb_L298N);
+
+	updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
+}
+
+void prepare_for_motor_ini_lf(){
+
+	init_encoder_info(&lf_encoder_info, &htim5);
+	L298N_init(&lf_L298N, TIM_CHANNEL_2, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+	pid_init(&lf_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
+	init_motor(&lf_motor, &lf_motor_state, &htim7, &lf_encoder_info, &lf_pid_controller, &lf_L298N);
+
+	updater_timer_periods = CountPeriodS(lf_motor.motor_updater_tim);
+}
+
+//void prepare_for_motor_ini_rb(){
+//
+//	init_encoder_info(&eb_encoder_info, &htim5);
+//	L298N_init(&rb_L298N, TIM_CHANNEL_2, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
+//	pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
+//	init_motor(&lf_motor, &lf_motor_state, &htim7, &lf_encoder_info, &pid_controller, &lf_L298N);
+//
+//	updater_timer_periods = CountPeriodS(lf_motor.motor_updater_tim);
+//	L298N_set_input_configuration(&lf_L298N, L298N_MODE_FORWARD);
+//}
 
 
 int main(void)
@@ -67,29 +117,26 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM8_Init();
 
-  init_encoder_info(&encoder_info, &htim4);
-  L298N_init(&L298N_lb, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
-  pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
-  init_motor(&lb_motor, &lb_motor_state, &htim7, &encoder_info, &pid_controller, &L298N_lb);
 
-  updater_timer_periods = CountPeriodS(lb_motor.motor_updater_tim);
-  L298N_set_input_configuration(&L298N_lb, L298N_MODE_FORWARD);
-  init_driving_system(&driving_system ,&lb_motor, &lb_motor,&lb_motor, &lb_motor);
+  prepare_for_motor_ini_lb();
+  prepare_for_motor_ini_lf();
+  init_driving_system(&driving_system ,&lb_motor, &lf_motor,&lb_motor, &lb_motor);
   default_init_driving_system_if(&drv_system_if);
 
-
+  velo = 0;
   pwm_output = 0;
   tick = 0;
-  velo = 0;
 
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim7);
-  HAL_TIM_Base_Start(&htim8);
+
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
+
 
 
   /* USER CODE END 2 */
@@ -157,7 +204,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 //    	motor_state_set_velocity(&lb_motor_state, velo);
 //    	L298N_set_pwm_count(lb_motor.L298N_driver, pwm_output);
 
-    	driving_system_drive(&driving_system, velo);
+    	driving_system_drive(&driving_system);
     	tick += 1;
 //    	L298N_update_pwm(lb_motor.L298N_driver, pwm_output);
 

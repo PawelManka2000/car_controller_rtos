@@ -30,16 +30,18 @@ void default_init_driving_system_if(DrivingSystemIface* drv_system_if){
 }
 
 // TODO DELETE VELO
-void driving_system_drive(DrivingSystem* driving_system, float velo){
+void driving_system_drive(DrivingSystem* driving_system){
 
 
 	// TODO change to NO_OF_SIDE_MOTORS WHEN APPEARS
 //	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
-	for(int i = 0; i < 1; ++i){
+	for(int i = 0; i < NO_OF_SIDE_MOTORS; ++i){
 
     	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
+//    	update_motor_position(driving_system->right_motors_lst[i]->motor_state, driving_system->right_motors_lst[i]->encoder_info);
+
     	update_measured_velocity(driving_system->left_motors_lst[i]);
-//    	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
+//    	update_measured_velocity(driving_system->right_motors_lst[i]);
 
 		if(driving_system->velo_ctrl_flag){
 			regulate_velocity(driving_system->left_motors_lst[i]);
