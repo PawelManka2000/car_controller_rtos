@@ -121,11 +121,15 @@ int main(void)
 
 
   L298N_set_input_configuration(&lb_L298N, L298N_MODE_FORWARD);
-  init_driving_system(&driving_system ,&lb_motor, &rb_motor,&rf_motor, &lf_motor);
-  default_init_driving_system_if(&drv_system_if);
+  L298N_set_input_configuration(&lf_L298N, L298N_MODE_FORWARD);
+  L298N_set_input_configuration(&rb_L298N, L298N_MODE_FORWARD);
+  L298N_set_input_configuration(&rf_L298N, L298N_MODE_FORWARD);
+
+//  init_driving_system(&driving_system ,&lb_motor, &rb_motor,&rf_motor, &lf_motor);
+//  default_init_driving_system_if(&drv_system_if);
 
 
-  pwm_output = 0;
+  pwm_output = 30;
   tick = 0;
   velo = 0;
 
@@ -157,7 +161,7 @@ int main(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 
-	drv_system_if.exe_cmd(&driving_system, cmd_data);
+//	drv_system_if.exe_cmd(&driving_system, cmd_data);
 	HAL_UART_Receive_IT(&hlpuart1, cmd_data, CMD_CODE_LENGTH + MSG_PAYLOAD_LENGTH);
 
 }
@@ -202,9 +206,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 //    	update_motor_position(lb_motor.motor_state, lb_motor.encoder_info);
 //    	update_measured_velocity(&lb_motor);
 //    	motor_state_set_velocity(&lb_motor_state, velo);
-//    	L298N_set_pwm_count(lb_motor.L298N_driver, pwm_output);
+    	L298N_set_pwm_count(lb_motor.L298N_driver, pwm_output);
+    	L298N_set_pwm_count(rb_motor.L298N_driver, pwm_output);
+    	L298N_set_pwm_count(rf_motor.L298N_driver, pwm_output);
+    	L298N_set_pwm_count(lf_motor.L298N_driver, pwm_output);
 
-    	driving_system_drive(&driving_system, velo);
+//    	driving_system_drive(&driving_system, velo);
     	tick += 1;
 //    	L298N_update_pwm(lb_motor.L298N_driver, pwm_output);
 

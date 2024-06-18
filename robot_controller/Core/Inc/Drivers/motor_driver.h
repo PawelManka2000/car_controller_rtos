@@ -49,6 +49,8 @@ typedef struct{
 
 }MotorStruct;
 
+void init_motor_state(MotorState *motor_state, EMotorId motor_id_);
+
 
 void init_motor(
 		MotorStruct *motor_struct,
