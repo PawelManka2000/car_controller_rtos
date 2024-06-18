@@ -54,7 +54,11 @@ MotorStruct rb_motor;
 L298N_driver rb_L298N;
 MotorState rb_motor_state;
 
-
+PIDController rf_pid_controller;
+EncoderInfo rf_encoder_info;
+MotorStruct rf_motor;
+L298N_driver rf_L298N;
+MotorState rf_motor_state;
 
 
 
@@ -102,20 +106,18 @@ void prepare_for_motor_ini_rb(){
 	updater_timer_periods = CountPeriodS(lf_motor.motor_updater_tim);
 }
 
+void prepare_for_motor_ini_rf(){
+
+	init_encoder_info(&rf_encoder_info, &htim3);
+	L298N_init(&rf_L298N, TIM_CHANNEL_4, &htim1, GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_9);
+	pid_init(&rf_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
+	init_motor(&rf_motor, &rf_motor_state, &htim7, &rf_encoder_info, &rf_pid_controller, &rf_L298N);
+
+	updater_timer_periods = CountPeriodS(rf_motor.motor_updater_tim);
+}
 
 
 
-
-//void prepare_for_motor_ini_rb(){
-//
-//	init_encoder_info(&eb_encoder_info, &htim5);
-//	L298N_init(&rb_L298N, TIM_CHANNEL_2, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
-//	pid_init(&pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
-//	init_motor(&lf_motor, &lf_motor_state, &htim7, &lf_encoder_info, &pid_controller, &lf_L298N);
-//
-//	updater_timer_periods = CountPeriodS(lf_motor.motor_updater_tim);
-//	L298N_set_input_configuration(&lf_L298N, L298N_MODE_FORWARD);
-//}
 
 
 int main(void)
@@ -137,8 +139,9 @@ int main(void)
   prepare_for_motor_ini_lb();
   prepare_for_motor_ini_lf();
   prepare_for_motor_ini_rb();
+  prepare_for_motor_ini_rf();
 
-  init_driving_system(&driving_system ,&lb_motor, &lf_motor, &rb_motor, &lb_motor);
+  init_driving_system(&driving_system ,&lb_motor, &lf_motor, &rb_motor, &rf_motor);
   default_init_driving_system_if(&drv_system_if);
 
   velo = 0;
