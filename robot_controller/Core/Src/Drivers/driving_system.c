@@ -13,7 +13,7 @@
 static void add_states_payload_to_state_msg(MotorState* motor_state, uint8_t* offset, uint8_t* state_msg);
 
 
-void init_driving_system(DrivingSystem* driving_system, MotorStruct* lb_motor, MotorStruct* lf_motor, MotorStruct* rb_motor, MotorStruct* rf_motor)
+void init_driving_system(DrivingSystem* driving_system, MotorStruct* lb_motor, MotorStruct* rb_motor, MotorStruct* rf_motor, MotorStruct* lf_motor)
 {
 
 	driving_system->left_motors_lst[0] = lb_motor;
@@ -39,15 +39,15 @@ void driving_system_drive(DrivingSystem* driving_system, float velo){
 
     	update_motor_position(driving_system->left_motors_lst[i]->motor_state, driving_system->left_motors_lst[i]->encoder_info);
     	update_measured_velocity(driving_system->left_motors_lst[i]);
-//    	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
+    	motor_state_set_velocity(driving_system->left_motors_lst[i]->motor_state, velo);
 
 		if(driving_system->velo_ctrl_flag){
 			regulate_velocity(driving_system->left_motors_lst[i]);
-//			regulate_velocity(driving_system->right_motors_lst[i]);
+			regulate_velocity(driving_system->right_motors_lst[i]);
 		}
 
 		L298N_update_pwm(driving_system->left_motors_lst[i]->L298N_driver);
-//		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver);
+		L298N_update_pwm(driving_system->right_motors_lst[i]->L298N_driver);
 
 
 	}
