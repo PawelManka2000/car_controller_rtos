@@ -120,11 +120,10 @@ void send_drv_err(char* msg){
 
 static void add_states_payload_to_state_msg(MotorState* motor_state, uint8_t* offset, uint8_t* state_msg){
 
-	uint8_t payload_length = 6;
-	uint8_t state_payload[payload_length];
+	uint8_t state_payload[STATE_PAYLOAD_LENGTH];
 	bytes_motor_state(motor_state, state_payload);
 
-	for (int i = 0; i < payload_length; i++){
+	for (int i = 0; i < STATE_PAYLOAD_LENGTH; i++){
 		state_msg[*offset] = state_payload[i];
 		*offset += 1;
 	}
@@ -149,7 +148,7 @@ void send_resp(enum ECmdId cmd_code,uint8_t* cmd_status){
 
 void send_state(DrivingSystem* driving_system){
 
-	uint8_t state_msg_length = 26;
+	uint8_t state_msg_length = 2 + 4 * STATE_PAYLOAD_LENGTH;
 	uint8_t state_msg[state_msg_length];
 	state_msg[0] = MSG_STATE;
 	uint8_t offset = 1;

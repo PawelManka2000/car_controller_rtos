@@ -23,6 +23,7 @@
 #define DRIVING_ERR "ERR_DRV "
 #define ACK_RESP_HEADER "ACK "
 
+#define STATE_PAYLOAD_LENGTH 7
 
 
 
