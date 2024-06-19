@@ -39,4 +39,20 @@ enum ECmdStatus{
 
 };
 
+typedef enum{
+
+	LB = 1,
+	LF = 2,
+	RB = 3,
+	RF = 4
+}EMotorId;
+
+typedef enum{
+
+	L298N_MODE_STOP,
+	L298N_MODE_FORWARD,
+	L298N_MODE_BACKWARD,
+
+}EL298N_MODE;
+
 #endif /* INC_ENUMS_ENUMS_H_ */

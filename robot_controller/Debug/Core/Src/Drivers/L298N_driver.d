@@ -29,7 +29,8 @@ Core/Src/Drivers/L298N_driver.o: ../Core/Src/Drivers/L298N_driver.c \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h \
- C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h
+ C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h \
+ C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Enums/enums.h
 C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -61,3 +62,4 @@ C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Co
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h:
 C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h:
+C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Enums/enums.h:

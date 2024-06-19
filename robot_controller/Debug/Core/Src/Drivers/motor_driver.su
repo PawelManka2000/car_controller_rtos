@@ -1,8 +1,9 @@
-../Core/Src/Drivers/motor_driver.c:14:6:init_motor	24	static
-../Core/Src/Drivers/motor_driver.c:31:6:str_motor_state	48	static
-../Core/Src/Drivers/motor_driver.c:36:6:bytes_motor_state	32	static
-../Core/Src/Drivers/motor_driver.c:52:6:regulate_velocity	24	static
-../Core/Src/Drivers/motor_driver.c:66:6:update_motor_position	32	static
-../Core/Src/Drivers/motor_driver.c:102:6:motor_state_set_velocity	16	static
-../Core/Src/Drivers/motor_driver.c:107:6:update_measured_velocity	24	static
-../Core/Src/Drivers/motor_driver.c:115:7:rotary_displacement	16	static
+../Core/Src/Drivers/motor_driver.c:14:6:init_motor_state	16	static
+../Core/Src/Drivers/motor_driver.c:19:6:init_motor	24	static
+../Core/Src/Drivers/motor_driver.c:36:6:str_motor_state	48	static
+../Core/Src/Drivers/motor_driver.c:41:6:bytes_motor_state	32	static
+../Core/Src/Drivers/motor_driver.c:57:6:regulate_velocity	24	static
+../Core/Src/Drivers/motor_driver.c:71:6:update_motor_position	32	static
+../Core/Src/Drivers/motor_driver.c:107:6:motor_state_set_velocity	16	static
+../Core/Src/Drivers/motor_driver.c:112:6:update_measured_velocity	24	static
+../Core/Src/Drivers/motor_driver.c:120:7:rotary_displacement	16	static

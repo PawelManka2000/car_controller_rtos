@@ -14,6 +14,7 @@
 #include "L298N_driver.h"
 #include <stdio.h>
 #include <string.h>
+#include "enums.h"
 
 
 #define STATE_BUFFER_LENGTH 40
@@ -40,6 +41,7 @@ typedef struct{
 
 }MotorStruct;
 
+void init_motor_state(MotorState *motor_state_, EMotorId motor_id);
 
 void init_motor(
 		MotorStruct *motor_struct,

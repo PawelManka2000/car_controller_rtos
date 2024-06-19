@@ -10,16 +10,10 @@
 
 #include "stm32g4xx_hal.h"
 #include "timers_configuration.h"
+#include "enums.h"
 
 
 
-typedef enum{
-
-	L298N_MODE_STOP,
-	L298N_MODE_FORWARD,
-	L298N_MODE_BACKWARD,
-
-}EL298N_MODE;
 
 
 typedef struct{

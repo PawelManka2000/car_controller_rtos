@@ -34,7 +34,8 @@ Core/Src/Drivers/motor_driver.o: ../Core/Src/Drivers/motor_driver.c \
  C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Features/timers_feature.h \
  C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h \
  C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h \
- C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h
+ C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h \
+ C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Enums/enums.h
 C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Features/motor_features.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -71,3 +72,4 @@ C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Co
 C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Drivers/pid_controller.h:
 C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Drivers/L298N_driver.h:
 C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Configuration/timers_configuration.h:
+C:/Users/Admin/STM32CubeIDE/robot_new_ws/car_controller_rtos/robot_controller/Core/Inc/Enums/enums.h:

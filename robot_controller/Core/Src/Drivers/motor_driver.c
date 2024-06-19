@@ -11,6 +11,11 @@
 
 
 
+void init_motor_state(MotorState *motor_state_, EMotorId motor_id)
+{
+	motor_state_->motor_id = motor_id;
+}
+
 void init_motor(
 		MotorStruct *motor_struct,
 		MotorState *motor_state_,

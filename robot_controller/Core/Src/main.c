@@ -77,7 +77,7 @@ void generate_random_signal_velo(void);
 
 void prepare_for_motor_ini_lb(){
 
-
+	init_motor_state(&lb_motor_state, LB);
 	init_encoder_info(&lb_encoder_info, &htim4);
 	L298N_init(&lb_L298N, TIM_CHANNEL_1, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
 	pid_init(&lb_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
@@ -88,6 +88,7 @@ void prepare_for_motor_ini_lb(){
 
 void prepare_for_motor_ini_lf(){
 
+	init_motor_state(&lf_motor_state, LF);
 	init_encoder_info(&lf_encoder_info, &htim5);
 	L298N_init(&lf_L298N, TIM_CHANNEL_2, &htim1, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
 	pid_init(&lf_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
@@ -98,6 +99,7 @@ void prepare_for_motor_ini_lf(){
 
 void prepare_for_motor_ini_rb(){
 
+	init_motor_state(&rb_motor_state, RB);
 	init_encoder_info(&rb_encoder_info, &htim8);
 	L298N_init(&rb_L298N, TIM_CHANNEL_3, &htim1, GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_9);
 	pid_init(&rb_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
@@ -108,6 +110,7 @@ void prepare_for_motor_ini_rb(){
 
 void prepare_for_motor_ini_rf(){
 
+	init_motor_state(&rf_motor_state, RF);
 	init_encoder_info(&rf_encoder_info, &htim3);
 	L298N_init(&rf_L298N, TIM_CHANNEL_4, &htim1, GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_9);
 	pid_init(&rf_pid_controller, MOTOR_Kp , MOTOR_Ki, MOTOR_Kd, MOTOR_ANTI_WINDUP);
